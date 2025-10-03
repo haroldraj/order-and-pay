@@ -16,7 +16,7 @@ The goal of the project is to provide a backend service that manages users, role
 
 ## 🗄️ Database Schema
 
-![Database Schema](img/LDM.png)  
+![Database Schema](img/LDM_v9.png)  
 *(Replace with your actual screenshot path)*
 
 ---
