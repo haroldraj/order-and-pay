@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS users(
     email_address VARCHAR(30) NOT NULL UNIQUE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_users PRIMARY KEY (id),
-    CONSTRAINT FK_users_addresses FOREIGN KEY (address_id) REFERENCES addresses(id)
+    CONSTRAINT FK_users_addresses FOREIGN KEY (address_id) REFERENCES addresses(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS users_roles(
     user_id INTEGER,
     role_id INTEGER,
-    CONSTRAINT FK_users_roles_users FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT FK_users_roles_roles FOREIGN KEY (role_id) REFERENCES roles(id),
+    CONSTRAINT FK_users_roles_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT FK_users_roles_roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
     CONSTRAINT PK_users_roles PRIMARY KEY (user_id,role_id)
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS restaurants(
     address_id INTEGER,
     restaurant_name VARCHAR(50) NOT NULL UNIQUE,
     CONSTRAINT PK_restaurants PRIMARY KEY (id),
-    CONSTRAINT FK_restaurants_addresses FOREIGN KEY (address_id) REFERENCES addresses(id)
+    CONSTRAINT FK_restaurants_addresses FOREIGN KEY (address_id) REFERENCES addresses(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS menu_items(
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS menu_items(
     menu_name VARCHAR(50) NOT NULL UNIQUE,
     price DECIMAL NOT NULL,
     CONSTRAINT PK_menu_items PRIMARY KEY (id),
-    CONSTRAINT FK_menu_items_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
+    CONSTRAINT FK_menu_items_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS orders(
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS orders(
     total_amount DECIMAL NOT NULL,
     status VARCHAR(15) NOT NULL,
     CONSTRAINT PK_orders PRIMARY KEY (id),
-    CONSTRAINT FK_orders_users FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT FK_orders_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
+    CONSTRAINT FK_orders_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT FK_orders_restaurants FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS deliveries(
@@ -77,8 +77,8 @@ CREATE TABLE IF NOT EXISTS deliveries(
     delivery_time TIMESTAMP,
     status VARCHAR(15) NOT NULL,
     CONSTRAINT PK_deliveries PRIMARY KEY (id),
-    CONSTRAINT FK_deliveries_users FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT FK_deliveries_orders FOREIGN KEY (order_id) REFERENCES orders(id)
+    CONSTRAINT FK_deliveries_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT FK_deliveries_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS order_items(
@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS order_items(
     order_id INTEGER,
     quantity INTEGER,
     CONSTRAINT PK_order_items PRIMARY KEY (id),
-    CONSTRAINT FK_order_items_menu_items FOREIGN KEY (menu_items_id) REFERENCES menu_items(id),
-    CONSTRAINT FK_order_items_orders FOREIGN KEY (order_id) REFERENCES orders(id)
+    CONSTRAINT FK_order_items_menu_items FOREIGN KEY (menu_items_id) REFERENCES menu_items(id) ON DELETE CASCADE,
+    CONSTRAINT FK_order_items_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS payments(
@@ -100,6 +100,6 @@ CREATE TABLE IF NOT EXISTS payments(
     value_date TIMESTAMP,
     status VARCHAR(15) NOT NULL,
     CONSTRAINT PK_payment PRIMARY KEY (id),
-    CONSTRAINT FK_payments_users FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT FK_payments_orders FOREIGN KEY (order_id) REFERENCES orders(id)
+    CONSTRAINT FK_payments_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT FK_payments_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
