@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name= "users")
@@ -45,7 +46,24 @@ public class UserJpa {
     @AttributeOverride(name = "country", column = @Column(name = "addr_country"))
     private AddressEmbeddable addressEmbeddable;
 
-   @OneToMany(mappedBy = "userJpa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orderUserJpa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderJpa> orderJpaList;
 
+    @OneToOne(mappedBy = "deliveryUserJpa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private DeliveryJpa deliveryJpa;
+
+    @OneToOne(mappedBy = "paymentUserJpa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PaymentJpa paymentJpa;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        UserJpa userJpa = (UserJpa) o;
+        return Objects.equals(id, userJpa.id) && Objects.equals(userIdf, userJpa.userIdf) && Objects.equals(userName, userJpa.userName) && Objects.equals(phoneNumber, userJpa.phoneNumber) && Objects.equals(emailAddress, userJpa.emailAddress) && Objects.equals(creationDate, userJpa.creationDate) && Objects.equals(role, userJpa.role) && Objects.equals(addressEmbeddable, userJpa.addressEmbeddable) && Objects.equals(orderJpaList, userJpa.orderJpaList) && Objects.equals(deliveryJpa, userJpa.deliveryJpa) && Objects.equals(paymentJpa, userJpa.paymentJpa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userIdf, userName, phoneNumber, emailAddress, creationDate, role, addressEmbeddable, orderJpaList, deliveryJpa, paymentJpa);
+    }
 }
