@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS restaurants(
 
 CREATE TABLE IF NOT EXISTS menu_items(
     id INTEGER AUTO_INCREMENT,
-    menu_items_idf VARCHAR(36) NOT NULL,
+    menu_item_idf VARCHAR(36) NOT NULL,
     restaurant_id INTEGER,
     menu_name VARCHAR(50) NOT NULL UNIQUE,
     price DECIMAL NOT NULL,
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS deliveries(
 
 CREATE TABLE IF NOT EXISTS order_items(
     id INTEGER AUTO_INCREMENT,
-    oder_items_idf VARCHAR(36) NOT NULL,
-    menu_items_id INTEGER,
+    oder_item_idf VARCHAR(36) NOT NULL,
+    menu_item_id INTEGER,
     order_id INTEGER,
     quantity INTEGER,
     CONSTRAINT PRIMARY KEY (id),
