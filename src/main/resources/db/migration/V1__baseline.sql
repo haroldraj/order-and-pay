@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS order_items(
     order_id INTEGER,
     quantity INTEGER,
     CONSTRAINT PRIMARY KEY (id),
-    CONSTRAINT FK_order_items_menu_items FOREIGN KEY (menu_items_id) REFERENCES menu_items(id) ON DELETE CASCADE,
+    CONSTRAINT FK_order_items_menu_items FOREIGN KEY (menu_item_id) REFERENCES menu_items(id) ON DELETE CASCADE,
     CONSTRAINT FK_order_items_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 

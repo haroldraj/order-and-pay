@@ -11,7 +11,7 @@ CREATE INDEX ix_orders__user_created ON orders (user_id, creation_date);
 
 CREATE INDEX ix_order_items__order ON order_items (order_id);
 
-CREATE INDEX ix_order_items__menu_item ON order_items (menu_items_id);
+CREATE INDEX ix_order_items__menu_item ON order_items (menu_item_id);
 
 CREATE INDEX ix_menu_items__restaurant ON menu_items (restaurant_id);
 
