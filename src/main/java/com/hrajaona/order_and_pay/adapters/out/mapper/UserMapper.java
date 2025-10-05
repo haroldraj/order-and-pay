@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
-    private AddressMapper addressMapper;
+    private final AddressMapper addressMapper;
 
     public UserJpa toJpa(User user) {
         UserJpa userJpa = new UserJpa();

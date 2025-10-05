@@ -6,6 +6,6 @@ spring:
     active: 'dev'
 
 server:
-  port: 8081
+  port: 2000
 
 
