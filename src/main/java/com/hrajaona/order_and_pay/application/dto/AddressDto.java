@@ -1,4 +1,4 @@
-package com.hrajaona.order_and_pay.domain.model;
+package com.hrajaona.order_and_pay.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class AddressDto {
     private String street;
     private String house;
     private String box;

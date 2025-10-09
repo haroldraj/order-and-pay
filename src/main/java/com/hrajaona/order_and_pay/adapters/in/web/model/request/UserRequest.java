@@ -1,4 +1,4 @@
-package com.hrajaona.order_and_pay.adapters.in.request;
+package com.hrajaona.order_and_pay.adapters.in.web.model.request;
 
 import com.hrajaona.order_and_pay.domain.model.Address;
 import com.hrajaona.order_and_pay.shared.enums.Role;
@@ -9,6 +9,6 @@ public record UserRequest(
         String phoneNumber,
         @Email String emailAddress,
         Role role,
-        Address userAddress
+        Address address
 )
 {}

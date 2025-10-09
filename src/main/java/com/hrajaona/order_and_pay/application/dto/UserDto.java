@@ -1,4 +1,4 @@
-package com.hrajaona.order_and_pay.domain.model;
+package com.hrajaona.order_and_pay.application.dto;
 
 import com.hrajaona.order_and_pay.shared.enums.Role;
 import lombok.AllArgsConstructor;
@@ -12,14 +12,13 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User
-{
+public class UserDto {
     private Long id;
     private String userIdf;
     private String userName;
     private String phoneNumber;
     private String emailAddress;
     private Role role;
-    private Address address;
+    private AddressDto address;
     private LocalDateTime creationDate;
 }

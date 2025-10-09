@@ -1,6 +1,6 @@
-package com.hrajaona.order_and_pay.adapters.in.response;
+package com.hrajaona.order_and_pay.adapters.in.web.model.response;
 
-import com.hrajaona.order_and_pay.domain.model.Address;
+import com.hrajaona.order_and_pay.application.dto.AddressDto;
 import com.hrajaona.order_and_pay.shared.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +19,6 @@ public class UserResponse {
     private String phoneNumber;
     private String emailAddress;
     private Role role;
-    private Address userAddress;
+    private AddressDto address;
     private LocalDateTime creationDate;
 }
