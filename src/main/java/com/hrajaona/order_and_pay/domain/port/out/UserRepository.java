@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserJpa, Long> {
-//    User save (UserRequest userRequest);
-//    List<User> findAll();
+
 }
