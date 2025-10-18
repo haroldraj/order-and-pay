@@ -14,10 +14,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper ;
 
-    public List<UserResponse> getAllUsersList() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toResponse)
-                .toList();
-    }
+//    public List<UserResponse> getAllUsersList() {
+//        return userRepository.findAll()
+//                .stream()
+//                .map(userMapper::toResponse)
+//                .toList();
+//    }
 }
