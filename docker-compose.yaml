@@ -1,3 +1,4 @@
+version: '2.40.0'
 services:
   mariadb:
     container_name: order_and_pay_mariadb
@@ -11,18 +12,61 @@ services:
     volumes:
       - order_and_pay_mariadb:/var/lib/mysql
 
-#  postgres:
-#    container_name: order_and_pay_postgres
-#    image: postgres
-#    restart: always
-#    environment:
-#      POSTGRES_PASSWORD: test
-#      POSTGRES_DB: order_and_pay
-#    ports:
-#      - 5432:5432
-#    volumes:
-#      - order_and_pay_postgres:/var/lib/postgresql
+  user_db:
+    container_name: user_db
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: user_user_db
+      POSTGRES_PASSWORD: password_user_db
+      POSTGRES_DB: user_db
+    ports:
+      - 5440:5432
+    volumes:
+      - user_db:/var/lib/postgresql
+
+  order_db:
+    container_name: order_db
+    restart: always
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user_order_db
+      POSTGRES_PASSWORD: password_order_db
+      POSTGRES_DB: order_db
+    ports:
+      - 5441:5432
+    volumes:
+      - order_db:/var/lib/postgresql
+
+  payment_db:
+    container_name: payment_db
+    restart: always
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user_payment_db
+      POSTGRES_PASSWORD: password_payment_db
+      POSTGRES_DB: payment_db
+    ports:
+      - 5442:5432
+    volumes:
+      - payment_db:/var/lib/postgresql
+
+  delivery_db:
+    container_name: delivery_db
+    restart: always
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user_delivery_db
+      POSTGRES_PASSWORD: password_delivery_db
+      POSTGRES_DB: delivery_db
+    ports:
+      - 5443:5432
+    volumes:
+      - delivery_db:/var/lib/postgresql
 
 volumes:
   order_and_pay_mariadb:
-#  order_and_pay_postgres:
+  user_db:
+  order_db:
+  payment_db:
+  delivery_db:
