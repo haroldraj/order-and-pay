@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: 'order_and_pay_restaurant'
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:postgresql://localhost:5444/restaurant_db
+    username: user_restaurant_db
+    password: password_restaurant_db
+
+springdoc:
+  swagger-ui:
+    path: /api
+
+server:
+  port: 5454
+
+logging:
+  level:
+    org.springframework: DEBUG
