@@ -1,16 +1,19 @@
 CREATE TABLE IF NOT EXISTS users(
     id BIGSERIAL PRIMARY KEY ,
-    user_idf VARCHAR(36) NOT NULL,
+    user_idf UUID UNIQUE NOT NULL,
     user_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
     email_address VARCHAR(30) NOT NULL UNIQUE,
     status VARCHAR(30),
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
     );
+
+CREATE INDEX IF NOT EXISTS idx_users_user_idf ON users(user_idf);
 
 CREATE TABLE IF NOT EXISTS addresses(
     id BIGSERIAL PRIMARY KEY ,
-    address_idf VARCHAR(36) NOT NULL,
+    address_idf UUID UNIQUE NOT NULL,
     user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
     label VARCHAR(50),
     street VARCHAR(50) NOT NULL,
@@ -20,8 +23,12 @@ CREATE TABLE IF NOT EXISTS addresses(
     postal_code INTEGER,
     country VARCHAR(30),
     is_default BOOLEAN,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
     );
+
+CREATE INDEX IF NOT EXISTS idx_addresses_address_idf ON addresses(address_idf);
+CREATE INDEX IF NOT EXISTS idx_addresses_user_id ON addresses(user_id);
 
 CREATE TABLE IF NOT EXISTS roles(
   id BIGSERIAL PRIMARY KEY ,
