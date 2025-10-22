@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: 'order_and_pay_delivery'
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:postgresql://localhost:5443/delivery_db
+    username: user_delivery_db
+    password: password_delivery_db
+
+springdoc:
+  swagger-ui:
+    path: /api
+
+server:
+  port: 5453
+
+logging:
+  level:
+    org.springframework: DEBUG
