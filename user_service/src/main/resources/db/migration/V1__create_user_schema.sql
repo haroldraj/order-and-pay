@@ -31,8 +31,9 @@ CREATE INDEX IF NOT EXISTS idx_addresses_address_idf ON addresses(address_idf);
 CREATE INDEX IF NOT EXISTS idx_addresses_user_id ON addresses(user_id);
 
 CREATE TABLE IF NOT EXISTS roles(
-  id BIGSERIAL PRIMARY KEY ,
-  role_name VARCHAR(50) UNIQUE NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    role_idf UUID UNIQUE NOT NULL,
+    role_name VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_roles(
