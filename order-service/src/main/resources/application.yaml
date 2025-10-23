@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: 'order-and-pay-order-service'
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:postgresql://localhost:5441/order_db
+    username: user_order_db
+    password: password_order_db
+
+springdoc:
+  swagger-ui:
+    path: /api
+
+server:
+  port: 5451
+
+logging:
+  level:
+    org.springframework: DEBUG

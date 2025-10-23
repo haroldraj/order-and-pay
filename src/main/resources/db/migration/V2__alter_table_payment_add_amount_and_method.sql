@@ -1,3 +1,0 @@
-ALTER TABLE payments
-    ADD COLUMN amount INTEGER NOT NULL,
-    ADD COLUMN method VARCHAR(50) NOT NULL;

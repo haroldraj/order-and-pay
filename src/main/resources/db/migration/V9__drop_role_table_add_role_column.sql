@@ -1,6 +1,0 @@
-DROP TABLE users_roles;
-
-DROP TABLE roles;
-
-ALTER TABLE users
-    ADD COLUMN role VARCHAR(20) NOT NULL;

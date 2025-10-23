@@ -1,2 +1,0 @@
-ALTER TABLE orders
-    ADD COLUMN creation_date DATETIME NOT NULL;
