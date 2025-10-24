@@ -1,7 +1,7 @@
 package com.hrajaona.orderandpay.userservice.application.dto;
 
+import com.hrajaona.library.enums.RoleType;
 import com.hrajaona.orderandpay.userservice.domain.model.Address;
-import com.hrajaona.orderandpay.userservice.domain.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class UserResponse {
     private String phoneNumber;
     private String emailAddress;
     private String status;
-    private Set<Role> roles;
+    private RoleType role;
     private Set<Address> addresses;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

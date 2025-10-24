@@ -34,6 +34,9 @@ public class UserJpa {
     private String status;
 
     @Column
+    private String role;
+
+    @Column
     private LocalDateTime createdAt;
 
     @Column
@@ -42,18 +45,15 @@ public class UserJpa {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<AddressJpa> addresses;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-    private Set<RoleJpa> roles;
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserJpa userJpa = (UserJpa) o;
-        return Objects.equals(id, userJpa.id) && Objects.equals(userIdf, userJpa.userIdf) && Objects.equals(userName, userJpa.userName) && Objects.equals(phoneNumber, userJpa.phoneNumber) && Objects.equals(emailAddress, userJpa.emailAddress) && Objects.equals(status, userJpa.status) && Objects.equals(createdAt, userJpa.createdAt) && Objects.equals(updatedAt, userJpa.updatedAt) && Objects.equals(addresses, userJpa.addresses) && Objects.equals(roles, userJpa.roles);
+        return Objects.equals(id, userJpa.id) && Objects.equals(userIdf, userJpa.userIdf) && Objects.equals(userName, userJpa.userName) && Objects.equals(phoneNumber, userJpa.phoneNumber) && Objects.equals(emailAddress, userJpa.emailAddress) && Objects.equals(status, userJpa.status) && Objects.equals(role, userJpa.role) && Objects.equals(createdAt, userJpa.createdAt) && Objects.equals(updatedAt, userJpa.updatedAt) && Objects.equals(addresses, userJpa.addresses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userIdf, userName, phoneNumber, emailAddress, status, createdAt, updatedAt, addresses, roles);
+        return Objects.hash(id, userIdf, userName, phoneNumber, emailAddress, status, role, createdAt, updatedAt, addresses);
     }
 }

@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {RoleMapper.class, AddressMapper.class})
+@Mapper(componentModel = "spring", uses = {AddressMapper.class})
 public interface UserMapper {
     UserJpa domainToJpa(User user);
     User jpaToDomain(UserJpa userJpa);

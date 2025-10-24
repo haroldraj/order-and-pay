@@ -1,5 +1,6 @@
 package com.hrajaona.orderandpay.userservice.domain.model;
 
+import com.hrajaona.library.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class User {
     private String emailAddress;
     private String status;
     private Set<Address> addresses;
-    private Set<Role> roles;
+    private RoleType role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
