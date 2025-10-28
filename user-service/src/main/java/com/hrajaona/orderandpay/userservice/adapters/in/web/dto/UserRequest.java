@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.userservice.application.dto;
+package com.hrajaona.orderandpay.userservice.adapters.in.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

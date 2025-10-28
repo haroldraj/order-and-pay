@@ -1,11 +1,10 @@
-package com.hrajaona.orderandpay.userservice.adapters.in.rest;
+package com.hrajaona.orderandpay.userservice.adapters.in.web;
 
-import com.hrajaona.orderandpay.userservice.application.dto.UserResponse;
-import com.hrajaona.orderandpay.userservice.application.service.UserService;
+import com.hrajaona.orderandpay.userservice.adapters.in.web.dto.UserResponse;
+import com.hrajaona.orderandpay.userservice.application.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,13 +14,11 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userServiceImpl.getAllUsers());
     }
-
-    @PostMapping("/register")
 
 }

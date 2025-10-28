@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.userservice.application.dto;
+package com.hrajaona.orderandpay.userservice.adapters.in.web.dto;
 
 import com.hrajaona.library.enums.RoleType;
 import com.hrajaona.orderandpay.userservice.domain.model.Address;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -22,7 +22,7 @@ public class UserResponse {
     private String emailAddress;
     private String status;
     private RoleType role;
-    private Set<Address> addresses;
+    private List<Address> addresses;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
