@@ -4,12 +4,7 @@ CREATE TABLE IF NOT EXISTS restaurants(
     name VARCHAR(150) NOT NULL,
     phone_number VARCHAR(25),
     email_address VARCHAR(30),
-    street_name VARCHAR(50),
-    house_number VARCHAR(10),
-    box_number VARCHAR(10) NOT NULL,
-    city VARCHAR(100),
-    postal_code VARCHAR(10),
-    country VARCHAR(50),
+    address VARCHAR(150),
     status VARCHAR(30),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()

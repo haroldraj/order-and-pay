@@ -1,6 +1,5 @@
 package com.hrajaona.orderandpay.userservice.adapters.out.persistence;
 
-import com.hrajaona.orderandpay.userservice.adapters.in.web.dto.UserRequest;
 import com.hrajaona.orderandpay.userservice.adapters.out.persistence.entity.UserJpa;
 import com.hrajaona.orderandpay.userservice.adapters.out.persistence.mapper.UserPersistenceMapper;
 import com.hrajaona.orderandpay.userservice.adapters.out.persistence.repository.AddressRepository;
@@ -11,10 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
