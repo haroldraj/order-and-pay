@@ -1,91 +1,92 @@
-# 🛒 OrderAndPay — Modular Online Ordering Platform
+# 🍽️ Order & Pay — Microservices Architecture
 
-**OrderAndPay** is a personal backend development project that demonstrates the design of a **scalable and maintainable ordering system** for restaurants, cafés, or delivery services.  
-It focuses on **clean architecture**, **data consistency**, and **separation of business logic** through a **hexagonal (ports and adapters) architecture**.
-mICROSERVICES
----
-
-## 🎯 Purpose and Vision
-
-The goal of **OrderAndPay** is to build a backend capable of managing orders, users, roles, and payments in a modular and extensible way.  
-The system is designed to support multiple types of clients — mobile apps, web apps, or APIs used by partner services — without compromising performance or maintainability.
-
-By following modern engineering principles, the project serves both as a **learning environment** and as a **blueprint for enterprise-level backend systems**.
+**Order & Pay** is a distributed microservices system built with **Spring Boot**, **PostgreSQL**, **Kafka**, and **Docker**.  
+It simulates a real-world food ordering platform where users can place orders, make payments, and track deliveries, while restaurants manage their menus and order preparation.
 
 ---
 
-## 🧠 Design Philosophy
+## 🧭 Architecture Overview
 
-OrderAndPay is structured around three fundamental principles:
+The platform follows a **Domain-Driven, Hexagonal (Ports & Adapters)** architecture with clear boundaries between business logic, persistence, and communication layers.
 
-1. **Domain-Driven Design** — business rules are defined within the domain layer, ensuring independence from frameworks and persistence logic.  
-2. **Hexagonal Architecture** — the core logic interacts with the outside world through input/output ports, enabling flexibility and easier testing.  
-3. **Clean Code and Maintainability** — strict separation of concerns, consistent object mapping, and versioned database migrations guarantee long-term scalability.
+### 🔹 Microservices
 
-These design choices make the system adaptable for new modules such as inventory management, payment integration, and asynchronous event-driven communication.
+| Service | Responsibility |
+|----------|----------------|
+| 🧍‍♂️ **User Service** | Manages users, roles, and addresses |
+| 🍕 **Restaurant Service** | Manages restaurants, menus, and availability |
+| 🧾 **Order Service** | Handles order creation, snapshots, and history tracking |
+| 💳 **Payment Service** | Processes payments and publishes payment events |
+| 🚚 **Delivery Service** | Manages driver assignment and delivery tracking |
 
----
-
-## 🗄️ Database Schema
-
-![Database Schema](img/LDM_v10.png)  
-
-
----
-
-## ⚙️ Technology Stack (Brief Overview)
-
-- **Java (Spring Boot 3)** — core framework providing modularity and enterprise-level features.  
-- **MariaDB** — relational database for user, product, and order persistence.  
-- **MapStruct** — ensures clean mapping between domain, DTO, and persistence layers.  
-- **Flyway** — manages database schema versioning and migrations.  
-- **JUnit & Cucumber** — validate business logic and use cases through tests.  
-- **Docker (planned)** — containerization for deployment consistency.  
-- **Apache Kafka (upcoming)** — message broker to handle asynchronous communication between services.
-
-Each component contributes to building a robust, production-ready backend following real-world industry practices.
+Each service has its own database and communicates asynchronously via **Apache Kafka**.
 
 ---
 
-## 🧩 Project Structure Overview
+## 🧩 Core Technologies
 
-domain/ → Core business logic and domain models
-application/ → Use cases and service orchestration
-adapters/ → Infrastructure: REST, persistence, mapping, messaging
-resources/db/ → Flyway migration scripts
-tests/ → Unit and BDD test suites
-
----
-
-## 🚀 Next Steps and Roadmap
-
-The next major step in **OrderAndPay** is the **integration of Apache Kafka** to introduce message-driven communication.  
-This enhancement will enable **real-time event processing**, **decoupled services**, and **scalable transactions** across the system.
-
-### Upcoming Milestones:
-- [ ] Integrate **Kafka** as the main message queue (replacing direct service calls)  
-- [ ] Create **event producers** for key actions (e.g., order creation, payment initiation, notification trigger)  
-- [ ] Implement **Kafka consumers** to handle asynchronous workflows (inventory update, confirmation email, etc.)  
-- [ ] Define a **message schema** for standard event communication  
-- [ ] Add **monitoring and retry mechanisms** for message delivery reliability  
-- [ ] Prepare **Docker Compose** setup with Kafka and Zookeeper containers  
-
-This evolution will bring **OrderAndPay** closer to an event-driven microservice ecosystem — improving scalability, fault tolerance, and responsiveness.
+| Category | Stack |
+|-----------|--------|
+| **Language & Framework** | Java 21 + Spring Boot 3.5 |
+| **Architecture** | Hexagonal / Ports & Adapters |
+| **Persistence** | PostgreSQL + Flyway (for DB migrations) |
+| **Message Broker** | Apache Kafka (for event-driven communication) |
+| **Caching & Messaging** | Redis (optional, for performance) |
+| **Containerization** | Docker & Docker Compose |
+| **CI/CD (optional)** | GitHub Packages (for shared library distribution) |
+| **Testing** | JUnit 5 + Cucumber for BDD |
+| **Mapping** | MapStruct + Lombok |
+| **Logging** | SLF4J + Logback |
 
 ---
 
-## 🧭 Broader Learning Objective
+## 🧱 Shared Library — `order-and-pay-library`
 
-This project represents a personal journey in **enterprise backend design** — from foundational architecture to distributed system communication.  
-The integration of Kafka marks a transition toward mastering **asynchronous messaging patterns**, **event-driven systems**, and **microservice interoperability**, which are key skills in modern backend engineering.
+A reusable Maven library containing:
+- Common DTOs (`RoleType`, `BaseResponse`, event models)
+- Shared utility classes and converters (e.g., JSONB → Map)
+- Standardized response objects and enums
+
+This module is published to **GitHub Packages** and imported by every microservice.
 
 ---
 
-## 👨‍💻 Author
+## 🧾 Order Lifecycle
 
-**Harold Rajaonarison**  
-M.Sc. in Computer Science — Artificial Intelligence & Data  
-Brussels, Belgium  
+1. **User** creates an order through `Order Service`
+2. `Order Service` persists the order as `PENDING_PAYMENT` and publishes an `order.created` event
+3. **Payment Service** consumes it, processes the transaction, and emits a `payment.processed` event
+4. `Order Service` updates order status → `PAID` and emits `order.confirmed`
+5. **Restaurant Service** starts preparation → emits `order.prepared`
+6. **Delivery Service** assigns a driver → emits `delivery.assigned`
+7. `Order Service` marks it as `DELIVERING` and logs the full status history
 
-This project is part of a professional learning journey focused on backend architecture, modular design, and the practical application of enterprise software principles.
+Every message is also stored in an **inbox/outbox table** for full traceability and replay support.
 
+---
+
+## 🧠 Key Design Features
+
+### ✅ Clean & Independent Services
+Each service has its own:
+- Database schema  
+- Domain model  
+- API (REST and/or Kafka listeners)
+
+### ✅ Data Snapshots
+Orders store **immutable snapshots** of:
+- Restaurant info (`restaurant_snapshot`)
+- Delivery address (`address_snapshot`)
+
+This guarantees order history integrity even if restaurant or address data changes later.
+
+### ✅ Event-Driven Consistency
+- Events are published and consumed through **Kafka topics**  
+- Each event is saved in **outbox/inbox tables** for reliability  
+- Services stay **loosely coupled** and resilient to downtime
+
+### ✅ UUIDs Everywhere
+- All entities use native `UUID` identifiers (PostgreSQL `uuid` type)
+- Ensures type safety, compact storage, and better joins
+
+---
