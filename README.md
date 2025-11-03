@@ -88,5 +88,3 @@ This guarantees order history integrity even if restaurant or address data chang
 ### ✅ UUIDs Everywhere
 - All entities use native `UUID` identifiers (PostgreSQL `uuid` type)
 - Ensures type safety, compact storage, and better joins
-
----
