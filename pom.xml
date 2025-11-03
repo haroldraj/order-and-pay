@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.hrajaona</groupId>
     <artifactId>order-and-pay</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
     <name>Order and Pay API</name>
     <description>Parent aggregator for all order and pay microservices</description>
@@ -32,7 +32,7 @@
         <lombok.version>1.18.30</lombok.version>
         <maven.surefire.version>3.5.4</maven.surefire.version>
         <spring.boot.version>3.5.6</spring.boot.version>
-        <orderandpay.library.version>1.0.0</orderandpay.library.version>
+        <orderandpay.library.version>1.1.0</orderandpay.library.version>
         <flyway.core.version>11.13.2</flyway.core.version>
         <postgresql.version>42.7.7</postgresql.version>
         <flyway.postgresql.version>11.7.2</flyway.postgresql.version>
