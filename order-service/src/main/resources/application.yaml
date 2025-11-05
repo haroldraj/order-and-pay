@@ -21,3 +21,6 @@ server:
 logging:
   level:
     org.springframework: INFO
+
+host:
+  user-service: "http://localhost:5450/users"
