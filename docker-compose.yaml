@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: password_user_db
       POSTGRES_DB: user_db
     ports:
-      - 5440:5432
+      - "5440:5432"
     volumes:
       - user_db:/var/lib/postgresql
 
@@ -21,7 +21,7 @@ services:
       POSTGRES_PASSWORD: password_order_db
       POSTGRES_DB: order_db
     ports:
-      - 5441:5432
+      - "5441:5432"
     volumes:
       - order_db:/var/lib/postgresql
 
@@ -34,7 +34,7 @@ services:
       POSTGRES_PASSWORD: password_payment_db
       POSTGRES_DB: payment_db
     ports:
-      - 5442:5432
+      - "5442:5432"
     volumes:
       - payment_db:/var/lib/postgresql
 
@@ -47,7 +47,7 @@ services:
       POSTGRES_PASSWORD: password_delivery_db
       POSTGRES_DB: delivery_db
     ports:
-      - 5443:5432
+      - "5443:5432"
     volumes:
       - delivery_db:/var/lib/postgresql
 
@@ -60,37 +60,93 @@ services:
       POSTGRES_PASSWORD: password_restaurant_db
       POSTGRES_DB: restaurant_db
     ports:
-      - 5444:5432
+      - "5444:5432"
     volumes:
       - restaurant_db:/var/lib/postgresql
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.0
+  kafka_1:
+    container_name: kafka_1
     restart: always
-    container_name: zookeeper
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+    image: confluentinc/cp-kafka:7.8.3
     ports:
-      - "2181:2181"
+      - "9191:9092"
+    environment:
+      CLUSTER_ID: kafka-order-and-pay-id-1
 
-  kafka:
-    image: confluentinc/cp-kafka:7.6.0
-    restart: always
-    container_name: kafka
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_NODE_ID: 1
+      KAFKA_KRAFT_MODE: true
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9191,2@kafka_2:9192,3@kafka_3:9193
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9191
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+
     volumes:
-      - kafka_data:/var/lib/kafka/data
-    depends_on:
-      - zookeeper
+      - kafka_1:/var/lib/kafka/data
+
+  kafka_2:
+    container_name: kafka_2
+    restart: always
+    image: confluentinc/cp-kafka:7.8.3
     ports:
-      - 8092:9092
+      - "9192:9092"
+    environment:
+      CLUSTER_ID: kafka-order-and-pay-id-1
+
+      KAFKA_NODE_ID: 2
+      KAFKA_KRAFT_MODE: true
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9191,2@kafka_2:9192,3@kafka_3:9193
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9192
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+
+    volumes:
+      - kafka_2:/var/lib/kafka/data
+
+  kafka_3:
+    container_name: kafka_3
+    restart: always
+    image: confluentinc/cp-kafka:7.8.3
+    ports:
+      - "9193:9092"
+    environment:
+      CLUSTER_ID: kafka-order-and-pay-id-1
+
+      KAFKA_NODE_ID: 3
+      KAFKA_KRAFT_MODE: true
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9191,2@kafka_2:9192,3@kafka_3:9193
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9193
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+
+    volumes:
+      - kafka_3:/var/lib/kafka/data
 
 volumes:
   order_and_pay_mariadb:
@@ -99,4 +155,6 @@ volumes:
   payment_db:
   delivery_db:
   restaurant_db:
-  kafka_data:
+  kafka_1:
+  kafka_2:
+  kafka_3:
