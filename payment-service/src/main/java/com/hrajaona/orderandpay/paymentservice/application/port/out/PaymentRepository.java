@@ -1,13 +1,12 @@
-package com.hrajaona.orderandpay.paymentservice.domain.port;
+package com.hrajaona.orderandpay.paymentservice.application.port.out;
 
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface PaymentRepository {
-    List<Payment> findAll();
+    void save(Payment payment);
+    List<Payment> findAllPayments();
     Optional<Payment> findById(Long id);
-    Optional<Payment> findByPaymentIdf(UUID paymentIdf);
 }

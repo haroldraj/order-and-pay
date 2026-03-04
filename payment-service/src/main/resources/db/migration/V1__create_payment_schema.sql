@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS refunds(
     amount DECIMAL(12,2) NOT NULL,
     reason VARCHAR(255),
     refund_date TIMESTAMP DEFAULT NOW(),
-    status VARCHAR(30) NOT NULL
+    status VARCHAR(30) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_refunds_refund_idf ON refunds(refund_idf);

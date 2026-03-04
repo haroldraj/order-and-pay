@@ -17,7 +17,6 @@ public class Payment {
     private double amount;
     private String method;
     private PaymentStatus status;
-    private String description;
     private String reference;
     private LocalDateTime valueDate;
     private LocalDateTime createdAt;

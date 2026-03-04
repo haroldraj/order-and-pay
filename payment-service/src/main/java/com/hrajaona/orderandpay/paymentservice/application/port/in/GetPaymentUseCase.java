@@ -2,8 +2,8 @@ package com.hrajaona.orderandpay.paymentservice.application.port.in;
 
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface GetAllPaymentsUseCase {
-    List<Payment> getAllPayments();
+public interface GetPaymentUseCase {
+    Payment getPayment(Long id);
 }

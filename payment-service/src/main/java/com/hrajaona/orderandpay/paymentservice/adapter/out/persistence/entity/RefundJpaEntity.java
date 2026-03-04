@@ -1,5 +1,6 @@
-package com.hrajaona.orderandpay.paymentservice.infrastructure.persistence.entity;
+package com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity;
 
+import com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity.PaymentJpaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Table(name = "refunds")
 @Data
 @EqualsAndHashCode
-public class RefundEntity {
+public class RefundJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,8 +38,8 @@ public class RefundEntity {
     @Column
     private LocalDateTime updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
-    private PaymentEntity payment;
+    private PaymentJpaEntity payment;
 
 }
