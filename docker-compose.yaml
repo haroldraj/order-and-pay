@@ -149,7 +149,6 @@ services:
       - kafka_3:/var/lib/kafka/data
 
 volumes:
-  order_and_pay_mariadb:
   user_db:
   order_db:
   payment_db:

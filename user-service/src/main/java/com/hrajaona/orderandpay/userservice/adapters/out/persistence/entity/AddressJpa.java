@@ -50,6 +50,6 @@ public class AddressJpa {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "user_id")
+    @JoinColumn(name= "user_id", referencedColumnName = "id")
     private UserJpa user;
 }
