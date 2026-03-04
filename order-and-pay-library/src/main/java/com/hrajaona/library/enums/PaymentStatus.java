@@ -3,7 +3,7 @@ package com.hrajaona.library.enums;
 public enum PaymentStatus {
     PENDING,
     PROCESSING,
-    SUCCESS,
+    COMPLETED,
     FAILED,
     REFUNDED,
     CANCELLED
