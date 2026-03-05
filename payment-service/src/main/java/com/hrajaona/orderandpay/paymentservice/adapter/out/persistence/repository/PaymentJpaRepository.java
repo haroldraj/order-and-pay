@@ -3,5 +3,7 @@ package com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.reposito
 import com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity.PaymentJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PaymentJpaRepository extends JpaRepository<PaymentJpaEntity, Long> {
+import java.util.UUID;
+
+public interface PaymentJpaRepository extends JpaRepository<PaymentJpaEntity, UUID> {
 }

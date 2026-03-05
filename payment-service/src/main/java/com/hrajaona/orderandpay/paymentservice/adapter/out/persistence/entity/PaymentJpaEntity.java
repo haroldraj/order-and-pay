@@ -3,6 +3,7 @@ package com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,17 +15,15 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class PaymentJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
 
-    @Column
-    private UUID paymentIdf;
+    @Column(nullable = false)
+    private UUID orderId;
 
-    @Column
-    private UUID orderIdf;
-
-    @Column
-    private UUID userIdf;
+    @Column(nullable = false)
+    private UUID userId;
 
     @Column
     private double amount;

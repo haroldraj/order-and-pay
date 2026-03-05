@@ -11,9 +11,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
-    private UUID paymentIdf;
-    private UUID orderIdf;
-    private UUID userIdf;
+    private UUID id;
+    private UUID orderId;
+    private UUID userId;
     private double amount;
     private String method;
     private PaymentStatus status;

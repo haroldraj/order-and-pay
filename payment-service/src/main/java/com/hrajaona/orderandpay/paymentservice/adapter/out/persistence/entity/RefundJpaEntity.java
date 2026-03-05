@@ -1,9 +1,9 @@
 package com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity;
 
-import com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity.PaymentJpaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,11 +14,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class RefundJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    private UUID refundIdf;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
 
     @Column
     private double amount;
