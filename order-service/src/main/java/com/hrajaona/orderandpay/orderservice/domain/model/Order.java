@@ -1,5 +1,6 @@
 package com.hrajaona.orderandpay.orderservice.domain.model;
 
+import com.hrajaona.library.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,18 +16,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    private UUID orderIdf;
-    private UUID userIdf;
-    private UUID addressIdf;
-    private UUID restaurantIdf;
+    private UUID id;
+    private UUID userId;
+    private UUID addressId;
+    private UUID restaurantId;
     private List<OrderItem> orderItems;
-    private String status;
+    private OrderStatus status;
     private double totalAmount;
     private String paymentStatus;
     private String deliveryStatus;
     private Map<String, Object> addressSnapshot;
     private Map<String, Object> restaurantSnapshot;
-    private LocalDateTime orderDate;
+    private LocalDateTime valueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

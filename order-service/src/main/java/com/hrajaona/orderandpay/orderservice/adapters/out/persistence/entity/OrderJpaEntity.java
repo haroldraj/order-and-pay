@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -17,22 +16,19 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Table(name = "orders")
-public class OrderJpa {
+public class OrderJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column
-    private UUID orderIdf;
+    private UUID userId;
 
     @Column
-    private UUID userIdf;
+    private UUID addressId;
 
     @Column
-    private UUID addressIdf;
-
-    @Column
-    private UUID restaurantIdf;
+    private UUID restaurantId;
 
     @Column
     private String status;
@@ -55,7 +51,7 @@ public class OrderJpa {
     private Map<String, Object> restaurantSnapshot;
 
     @Column
-    private LocalDateTime orderDate;
+    private LocalDateTime valueDate;
 
     @Column
     private LocalDateTime createdAt;
@@ -64,9 +60,9 @@ public class OrderJpa {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItemJpa> orderItems;
+    private List<OrderItemJpaEntity> orderItems;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderStatusHistoryJpa> orderStatusHistories;
+    private List<OrderStatusHistoryJpaEntity> orderStatusHistories;
 
 }

@@ -15,9 +15,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequest {
-    private UUID userIdf;
-    private UUID addressIdf;
-    private UUID restaurantIdf;
+    private UUID userId;
+    private UUID addressId;
+    private UUID restaurantId;
     private List<OrderItem> orderItems;
     private String status;
     private double totalAmount;

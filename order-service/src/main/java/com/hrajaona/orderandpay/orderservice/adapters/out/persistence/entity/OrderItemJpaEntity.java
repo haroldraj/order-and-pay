@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -12,16 +13,14 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Table(name = "order_items")
-public class OrderItemJpa {
+public class OrderItemJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
 
     @Column
-    private UUID orderItemIdf;
-
-    @Column
-    private UUID itemIdf;
+    private UUID itemId;
 
     @Column
     private int quantity;
@@ -31,5 +30,5 @@ public class OrderItemJpa {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private OrderJpa order;
+    private OrderJpaEntity order;
 }

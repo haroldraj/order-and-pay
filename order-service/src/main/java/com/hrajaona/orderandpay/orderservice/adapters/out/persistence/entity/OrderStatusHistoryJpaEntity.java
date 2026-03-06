@@ -6,16 +6,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @Table(name = "order_status_history")
-public class OrderStatusHistoryJpa {
+public class OrderStatusHistoryJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column
     private String previousStatus;
@@ -31,5 +32,5 @@ public class OrderStatusHistoryJpa {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private OrderJpa order;
+    private OrderJpaEntity order;
 }

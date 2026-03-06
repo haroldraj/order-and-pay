@@ -1,6 +1,5 @@
 package com.hrajaona.orderandpay.paymentservice.application.port.out;
 
-import com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.entity.PaymentJpaEntity;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 
 import java.util.List;

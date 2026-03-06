@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItem {
-    private UUID itemIdf;
+    private UUID id;
     private int quantity;
     private double unitPrice;
 }
