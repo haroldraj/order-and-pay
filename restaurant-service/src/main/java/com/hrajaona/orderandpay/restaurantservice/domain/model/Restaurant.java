@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Restaurant {
-    private UUID restaurantIdf;
+    private UUID id;
     private String name;
     private String address;
     private List<MenuItem> menuItems;

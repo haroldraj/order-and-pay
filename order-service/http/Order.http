@@ -1,3 +1,9 @@
 ###
 GET http://localhost:5451/orders
 ###
+userId=6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1
+###
+addressId=4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
+###
+GET http://localhost:5451/orders/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
+###

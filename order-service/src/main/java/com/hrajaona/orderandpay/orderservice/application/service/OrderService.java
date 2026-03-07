@@ -6,11 +6,11 @@ import com.hrajaona.library.enums.PaymentStatus;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.dto.OrderRequest;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
+import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.AddressClientMapper;
 import com.hrajaona.orderandpay.orderservice.application.port.in.OrderUseCase;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,7 @@ import java.util.UUID;
 public class OrderService implements OrderUseCase {
     private final OrderRepository orderRepository;
     private final AddressClient addressClient;
+    private final AddressClientMapper  addressClientMapper;
 
     @Override
     public List<Order> getAllOrders() {
@@ -53,6 +54,7 @@ public class OrderService implements OrderUseCase {
                 .status(OrderStatus.PENDING_PAYMENT)
                 .paymentStatus(PaymentStatus.PENDING)
                 .valueDate(LocalDateTime.now())
+                .addressSnapshot(addressClientMapper.toDomain(address))
                 .build();
         return orderRepository.save(order);
     }

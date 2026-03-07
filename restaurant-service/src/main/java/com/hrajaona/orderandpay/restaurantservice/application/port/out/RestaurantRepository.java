@@ -4,8 +4,11 @@ import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
-public interface RestaurantPort {
+public interface RestaurantRepository {
     List<Restaurant> findAllRestaurants();
+    Optional<Restaurant> findById(UUID id);
 }

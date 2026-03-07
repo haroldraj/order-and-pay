@@ -6,36 +6,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name = "restaurants")
-public class RestaurantJpa {
+@Table(name = "menu_items")
+public class MenuItemJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    private UUID restaurantIdf;
+    private UUID id;
 
     @Column
     private String name;
 
     @Column
-    private String phoneNumber;
+    private String description;
 
     @Column
-    private String emailAddress;
+    private Boolean available;
 
     @Column
-    private String address;
-
-    @Column
-    private String status;
+    private Double price;
 
     @Column
     private LocalDateTime createdAt;
@@ -43,6 +35,7 @@ public class RestaurantJpa {
     @Column
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MenuItemJpa> menuItems;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    private RestaurantJpaEntity restaurant;
 }

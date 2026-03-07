@@ -29,7 +29,7 @@ services:
         get-restaurant: /{id}
 
     address:
-      base-url: http://localhost:5450/adresses
+      base-url: http://localhost:5450/addresses
       endpoints:
         get-address: /{addressId}
 

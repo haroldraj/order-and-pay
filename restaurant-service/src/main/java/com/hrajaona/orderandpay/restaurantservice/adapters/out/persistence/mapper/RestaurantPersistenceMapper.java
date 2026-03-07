@@ -1,12 +1,12 @@
 package com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.mapper;
 
-import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.entity.RestaurantJpa;
+import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.entity.RestaurantJpaEntity;
 import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {MenuItemPersistenceMapper.class})
 public interface RestaurantPersistenceMapper {
-    RestaurantJpa toJpa(Restaurant restaurant);
-    Restaurant toDomain(RestaurantJpa restaurantJpa);
+    RestaurantJpaEntity toJpa(Restaurant restaurant);
+    Restaurant toDomain(RestaurantJpaEntity restaurantJpaEntity);
 }

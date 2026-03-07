@@ -1,0 +1,3 @@
+### GET request to example server
+GET http://localhost:5450/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
+###
