@@ -6,6 +6,6 @@ import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import java.util.List;
 
 public interface OrderUseCase {
-    String createOrder(OrderRequest orderRequest);
     List<Order> getAllOrders();
+    Order create(OrderRequest orderRequest);
 }

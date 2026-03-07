@@ -8,4 +8,5 @@ import java.util.List;
 @Component
 public interface OrderRepository {
     List<Order> findAll();
+    Order save(Order order);
 }

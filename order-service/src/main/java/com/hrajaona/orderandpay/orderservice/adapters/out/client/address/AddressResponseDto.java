@@ -1,18 +1,16 @@
-package com.hrajaona.orderandpay.userservice.domain.model;
+package com.hrajaona.orderandpay.orderservice.adapters.out.client.address;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class AddressResponseDto {
     private UUID id;
     private String label;
     private String street;

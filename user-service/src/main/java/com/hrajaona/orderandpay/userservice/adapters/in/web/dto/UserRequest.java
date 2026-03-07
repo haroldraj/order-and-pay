@@ -14,5 +14,4 @@ public class UserRequest {
     private String phoneNumber;
     private String emailAddress;
     private String status;
-    private String role;
 }

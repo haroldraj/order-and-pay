@@ -1,14 +1,16 @@
 package com.hrajaona.orderandpay.orderservice.adapters.out.persistence.entity;
 
-import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.converter.JsonMapConverter;
+import com.hrajaona.orderandpay.orderservice.domain.model.AddressSnapshot;
+import com.hrajaona.orderandpay.orderservice.domain.model.RestaurantSnapshot;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +20,6 @@ import java.util.UUID;
 @Table(name = "orders")
 public class OrderJpaEntity {
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column
@@ -42,19 +43,16 @@ public class OrderJpaEntity {
     @Column
     private String deliveryStatus;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    @Convert(converter = JsonMapConverter.class)
-    private Map<String, Object> addressSnapshot;
+    private AddressSnapshot addressSnapshot;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    @Convert(converter = JsonMapConverter.class)
-    private Map<String, Object> restaurantSnapshot;
+    private RestaurantSnapshot restaurantSnapshot;
 
     @Column
     private LocalDateTime valueDate;
-
-    @Column
-    private LocalDateTime createdAt;
 
     @Column
     private LocalDateTime updatedAt;

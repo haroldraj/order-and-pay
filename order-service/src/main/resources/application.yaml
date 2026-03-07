@@ -20,4 +20,22 @@ server:
 
 logging:
   level:
-    org.springframework: INFO
+    org.springframework: DEBUG
+
+services:
+    restaurant:
+      base-url: http://localhost:5454/restaurants
+      endpoints:
+        get-restaurant: /{id}
+
+    address:
+      base-url: http://localhost:5450/adresses
+      endpoints:
+        get-address: /{addressId}
+
+
+kafka:
+  topics:
+    order-created: order.created
+    payment-requested: payment.requested
+    delivery-requested: delivery.requested

@@ -1,0 +1,22 @@
+TRUNCATE TABLE users, addresses;
+
+ALTER TABLE addresses
+DROP COLUMN address_idf;
+
+ALTER TABLE addresses
+DROP COLUMN id;
+
+ALTER TABLE users
+DROP COLUMN user_idf;
+
+ALTER TABLE users
+DROP COLUMN id;
+
+ALTER TABLE users
+ADD COLUMN id UUID PRIMARY KEY;
+
+ALTER TABLE addresses
+ADD COLUMN id UUID PRIMARY KEY;
+
+ALTER TABLE addresses
+ADD COLUMN user_id UUID REFERENCES users(id) ON DELETE  CASCADE ;

@@ -19,9 +19,5 @@ public class OrderRequest {
     private UUID addressId;
     private UUID restaurantId;
     private List<OrderItem> orderItems;
-    private String status;
     private double totalAmount;
-    private String paymentStatus;
-    private String deliveryStatus;
-    private LocalDateTime orderDate;
 }

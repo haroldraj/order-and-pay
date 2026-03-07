@@ -1,4 +1,15 @@
 ### GET request to example server
 GET http://localhost:5450/users
+###
+GET http://localhost:5450/users/6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1
+###
+POST http://localhost:5450/users
+Content-type: application/json
 
+{
+  "userName": "Harold Raja",
+  "phoneNumber": "+32467876137",
+  "emailAddress": "harold@email.com",
+  "status": "ACTIVE"
+}
 ###

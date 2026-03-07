@@ -1,6 +1,5 @@
-package com.hrajaona.orderandpay.userservice.domain.model;
+package com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant;
 
-import com.hrajaona.library.enums.RoleType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,17 +8,17 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class User {
-    private UUID id;
-    private String userName;
+@NoArgsConstructor
+@AllArgsConstructor
+public class RestaurantResponse {
+    private UUID restaurantIdf;
+    private String name;
+    private String address;
+    private List<MenuItemDto> menuItemDtos;
     private String phoneNumber;
     private String emailAddress;
     private String status;
-    private List<Address> addresses;
-    private RoleType role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

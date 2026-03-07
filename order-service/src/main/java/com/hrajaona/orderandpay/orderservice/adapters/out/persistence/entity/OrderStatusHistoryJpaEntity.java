@@ -15,7 +15,6 @@ import java.util.UUID;
 @Table(name = "order_status_history")
 public class OrderStatusHistoryJpaEntity {
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column

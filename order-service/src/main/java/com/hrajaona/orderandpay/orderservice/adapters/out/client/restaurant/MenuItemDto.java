@@ -1,18 +1,16 @@
-package com.hrajaona.orderandpay.restaurantservice.domain.model;
+package com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuItem {
+public class MenuItemDto {
     private UUID id;
     private String name;
     private String description;

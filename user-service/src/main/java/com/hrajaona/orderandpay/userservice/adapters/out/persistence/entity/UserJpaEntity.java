@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,13 +15,9 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Table(name = "users")
-public class UserJpa {
+public class UserJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    private UUID userIdf;
+    private UUID id;
 
     @Column
     private String userName;
@@ -44,5 +41,5 @@ public class UserJpa {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<AddressJpa> addresses;
+    private List<AddressJpaEntity> addresses;
 }

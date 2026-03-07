@@ -1,20 +1,19 @@
 package com.hrajaona.orderandpay.orderservice.domain.model;
 
+import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.enums.OrderStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.hrajaona.library.enums.PaymentStatus;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Order {
     private UUID id;
     private UUID userId;
@@ -23,11 +22,10 @@ public class Order {
     private List<OrderItem> orderItems;
     private OrderStatus status;
     private double totalAmount;
-    private String paymentStatus;
-    private String deliveryStatus;
-    private Map<String, Object> addressSnapshot;
-    private Map<String, Object> restaurantSnapshot;
+    private PaymentStatus paymentStatus;
+    private DeliveryStatus deliveryStatus;
+    private AddressSnapshot addressSnapshot;
+    private RestaurantSnapshot restaurantSnapshot;
     private LocalDateTime valueDate;
-    private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
