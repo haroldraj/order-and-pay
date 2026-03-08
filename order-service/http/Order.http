@@ -7,3 +7,5 @@ addressId=4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
 ###
 GET http://localhost:5451/orders/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
 ###
+GET http://localhost:5451/orders/restaurants/3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11
+###

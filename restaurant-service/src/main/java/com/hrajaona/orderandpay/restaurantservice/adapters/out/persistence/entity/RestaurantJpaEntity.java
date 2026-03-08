@@ -16,11 +16,7 @@ import java.util.UUID;
 @Table(name = "restaurants")
 public class RestaurantJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    private UUID restaurantIdf;
+    private UUID id;
 
     @Column
     private String name;

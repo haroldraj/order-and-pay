@@ -10,7 +10,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuItemDto {
+public class MenuItemResponseDto {
     private UUID id;
     private String name;
     private String description;

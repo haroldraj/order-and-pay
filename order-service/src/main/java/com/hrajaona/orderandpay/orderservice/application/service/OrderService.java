@@ -7,6 +7,9 @@ import com.hrajaona.orderandpay.orderservice.adapters.in.web.dto.OrderRequest;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.AddressClientMapper;
+import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.RestaurantClientMapper;
+import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantClient;
+import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantResponseDto;
 import com.hrajaona.orderandpay.orderservice.application.port.in.OrderUseCase;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
@@ -26,19 +29,22 @@ public class OrderService implements OrderUseCase {
     private final OrderRepository orderRepository;
     private final AddressClient addressClient;
     private final AddressClientMapper  addressClientMapper;
+    private final RestaurantClient restaurantClient;
+    private final RestaurantClientMapper restaurantClientMapper;
 
     @Override
     public List<Order> getAllOrders() {
         UUID id = UUID.fromString("28d53f6d-dedf-4789-8184-82b28d1fa6e1");
         AddressResponseDto address =  addressClient.getAddress(id);
 
-        log.info(address.toString());
+        log.info(address.getCountry());
         return orderRepository.findAll();
     }
 
     @Override
     public Order create(OrderRequest orderRequest) {
         AddressResponseDto address =  addressClient.getAddress(orderRequest.getAddressId());
+        RestaurantResponseDto restaurant = restaurantClient.getRestaurant(orderRequest.getRestaurantId());
 
         log.info(address.toString());
 
@@ -55,6 +61,7 @@ public class OrderService implements OrderUseCase {
                 .paymentStatus(PaymentStatus.PENDING)
                 .valueDate(LocalDateTime.now())
                 .addressSnapshot(addressClientMapper.toDomain(address))
+                .restaurantSnapshot(restaurantClientMapper.toDomain(restaurant))
                 .build();
         return orderRepository.save(order);
     }

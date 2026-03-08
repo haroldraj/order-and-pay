@@ -8,13 +8,14 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestaurantResponse {
-    private String restaurantIdf;
+    private UUID id;
     private List<MenuItem> menuItems;
     private String name;
     private String phoneNumber;

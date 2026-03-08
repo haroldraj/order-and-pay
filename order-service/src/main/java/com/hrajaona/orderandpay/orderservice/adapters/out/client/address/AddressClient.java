@@ -13,11 +13,11 @@ public class AddressClient {
     private final RestTemplate restTemplate;
     private final ServicesProperties servicesProperties;
 
-    public AddressResponseDto getAddress(UUID addressId) {
+    public AddressResponseDto getAddress(UUID id) {
         String url = servicesProperties.getAddress().getBaseUrl()
                 + servicesProperties.getAddress().getEndpoints().getGetAddress();
 
-        return restTemplate.getForObject(url, AddressResponseDto.class, addressId);
+        return restTemplate.getForObject(url, AddressResponseDto.class, id);
 
     }
 }

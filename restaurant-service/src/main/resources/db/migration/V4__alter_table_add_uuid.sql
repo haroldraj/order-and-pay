@@ -21,4 +21,7 @@ ALTER TABLE  restaurants
 ADD PRIMARY KEY (id);
 
 ALTER TABLE menu_items
-ALTER COLUMN restaurant_id TYPE UUID;
+DROP COLUMN restaurant_id;
+
+ALTER TABLE menu_items
+ADD COLUMN restaurant_id UUID REFERENCES restaurants(id) ON DELETE CASCADE ;
