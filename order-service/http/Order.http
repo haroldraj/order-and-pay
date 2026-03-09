@@ -9,3 +9,19 @@ GET http://localhost:5451/orders/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
 ###
 GET http://localhost:5451/orders/restaurants/3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11
 ###
+ "orderItems": [
+{    "id": "6f0b2af5-42e1-4b7f-b751-5a74b0cfb0e1",
+"quantity": 4,
+"unitPrice": 15}
+],
+###
+POST http://localhost:5451/orders
+Content-type: application/json
+
+{
+  "userId": "6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1",
+ "addressId": "a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab",
+  "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11",
+
+  "totalAmount": 150
+}

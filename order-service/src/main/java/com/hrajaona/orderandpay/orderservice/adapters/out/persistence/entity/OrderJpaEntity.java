@@ -57,10 +57,10 @@ public class OrderJpaEntity {
     @Column
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItemJpaEntity> orderItems;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderStatusHistoryJpaEntity> orderStatusHistories;
 
 }
