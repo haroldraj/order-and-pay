@@ -18,6 +18,6 @@ public class OrderRequest {
     private UUID userId;
     private UUID addressId;
     private UUID restaurantId;
-    private List<OrderItem> orderItems;
+    private List<OrderItemRequest> orderItems;
     private double totalAmount;
 }

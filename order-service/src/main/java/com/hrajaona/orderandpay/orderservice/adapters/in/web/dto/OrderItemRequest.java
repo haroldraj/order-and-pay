@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.orderservice.domain.model;
+package com.hrajaona.orderandpay.orderservice.adapters.in.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem {
-    private UUID id;
+@AllArgsConstructor
+public class OrderItemRequest {
     private UUID itemId;
-    private int quantity;
+    private Integer quantity;
     private double unitPrice;
 }

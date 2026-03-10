@@ -62,5 +62,11 @@ public class OrderJpaEntity {
 
     @OneToMany(mappedBy = "order",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderStatusHistoryJpaEntity> orderStatusHistories;
+    
+    public void addOrderItem(OrderItemJpaEntity item) {
+        if (item == null) return;
+        orderItems.add(item);
+        item.setOrder(this);
+    }
 
 }

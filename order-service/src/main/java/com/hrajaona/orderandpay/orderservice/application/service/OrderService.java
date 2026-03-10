@@ -4,6 +4,7 @@ import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.enums.OrderStatus;
 import com.hrajaona.library.enums.PaymentStatus;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.dto.OrderRequest;
+import com.hrajaona.orderandpay.orderservice.adapters.in.web.mapper.OrderItemWebMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.AddressClientMapper;
@@ -31,13 +32,10 @@ public class OrderService implements OrderUseCase {
     private final AddressClientMapper  addressClientMapper;
     private final RestaurantClient restaurantClient;
     private final RestaurantClientMapper restaurantClientMapper;
+    private final OrderItemWebMapper orderItemWebMapper;
 
     @Override
     public List<Order> getAllOrders() {
-        UUID id = UUID.fromString("28d53f6d-dedf-4789-8184-82b28d1fa6e1");
-        AddressResponseDto address =  addressClient.getAddress(id);
-
-        log.info(address.getCountry());
         return orderRepository.findAll();
     }
 
@@ -55,7 +53,7 @@ public class OrderService implements OrderUseCase {
                 .userId(orderRequest.getUserId())
                 .restaurantId(orderRequest.getRestaurantId())
                 .totalAmount(orderRequest.getTotalAmount())
-                .orderItems(orderRequest.getOrderItems())
+                .orderItems(orderItemWebMapper.toDomainList(orderRequest.getOrderItems()))
                 .deliveryStatus(DeliveryStatus.NOT_STARTED)
                 .status(OrderStatus.PENDING_PAYMENT)
                 .paymentStatus(PaymentStatus.PENDING)
