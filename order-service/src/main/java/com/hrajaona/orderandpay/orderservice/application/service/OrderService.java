@@ -14,11 +14,13 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.Rest
 import com.hrajaona.orderandpay.orderservice.application.port.in.OrderUseCase;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
+import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,7 +55,7 @@ public class OrderService implements OrderUseCase {
                 .userId(orderRequest.getUserId())
                 .restaurantId(orderRequest.getRestaurantId())
                 .totalAmount(orderRequest.getTotalAmount())
-                .orderItems(orderItemWebMapper.toDomainList(orderRequest.getOrderItems()))
+                .orderItems(new ArrayList<>())
                 .deliveryStatus(DeliveryStatus.NOT_STARTED)
                 .status(OrderStatus.PENDING_PAYMENT)
                 .paymentStatus(PaymentStatus.PENDING)
@@ -61,6 +63,9 @@ public class OrderService implements OrderUseCase {
                 .addressSnapshot(addressClientMapper.toDomain(address))
                 .restaurantSnapshot(restaurantClientMapper.toDomain(restaurant))
                 .build();
-        return orderRepository.save(order);
+
+        List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
+
+        return orderRepository.save(order, orderItems);
     }
 }

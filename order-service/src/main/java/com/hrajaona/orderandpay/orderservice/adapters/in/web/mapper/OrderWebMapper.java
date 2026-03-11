@@ -24,9 +24,9 @@ public interface OrderWebMapper {
 
         List<OrderItemJpaEntity> items = new ArrayList<>(orderEntity.getOrderItems());
         orderEntity.getOrderItems().clear();
-
-        for (OrderItemJpaEntity item : items) {
-            orderEntity.addOrderItem(item);
-        }
+//
+//        for (OrderItemJpaEntity item : items) {
+//            orderEntity.addOrderItem(item);
+//        }
     }
 }
