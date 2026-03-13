@@ -11,9 +11,30 @@ spring:
     username: user_order_db
     password: password_order_db
 
+  kafka:
+    bootstrap-servers: localhost:9191,localhost:9192,localhost:9193
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: order-service-group
+
+
+    properties:
+      spring:
+        json:
+          trusted:
+            packages: "com.hrajaona.orderandpay.*"
+
+
 springdoc:
   swagger-ui:
-    path: /api
+    path: /swagger-ui
 
 server:
   port: 5451
@@ -24,12 +45,12 @@ logging:
 
 services:
     restaurant:
-      base-url: http://localhost:5454/restaurants
+      base-url: http://localhost:5454/api/v1/restaurants
       endpoints:
         get-restaurant: /{id}
 
     address:
-      base-url: http://localhost:5450/addresses
+      base-url: http://localhost:5450/api/v1/addresses
       endpoints:
         get-address: /{addressId}
 
@@ -37,5 +58,7 @@ services:
 kafka:
   topics:
     order-created: order.created
-    payment-requested: payment.requested
-    delivery-requested: delivery.requested
+    payment-completed: payment.completed
+    payment-failed: payment.failed
+    delivery-created: delivery.created
+    delivery-completed: delivery.completed

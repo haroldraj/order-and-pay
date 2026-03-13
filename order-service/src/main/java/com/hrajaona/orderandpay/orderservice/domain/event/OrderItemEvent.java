@@ -1,18 +1,16 @@
-package com.hrajaona.orderandpay.orderservice.domain.model;
+package com.hrajaona.orderandpay.orderservice.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
-public class OrderItem {
+@Builder
+public class OrderItemEvent {
     private UUID id;
     private UUID productId;
     private String productName;

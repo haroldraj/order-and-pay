@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -20,13 +21,16 @@ public class OrderItemJpaEntity {
     private UUID id;
 
     @Column
-    private UUID itemId;
+    private UUID productId;
+
+    @Column
+    private String productName;
 
     @Column
     private int quantity;
 
     @Column
-    private double unitPrice;
+    private BigDecimal unitPrice;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")

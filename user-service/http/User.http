@@ -1,9 +1,9 @@
 ### GET request to example server
-GET http://localhost:5450/users
+GET http://localhost:5450/api/v1/users
 ###
-GET http://localhost:5450/users/6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1
+GET http://localhost:5450/api/v1/users/6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1
 ###
-POST http://localhost:5450/users
+POST http://localhost:5450/api/v1/users
 Content-type: application/json
 
 {

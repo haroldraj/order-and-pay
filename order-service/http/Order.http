@@ -1,13 +1,13 @@
 ###
-GET http://localhost:5451/orders
+GET http://localhost:5451/api/v1/orders
 ###
 userId=6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1
 ###
 addressId=4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
 ###
-GET http://localhost:5451/orders/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
+GET http://localhost:5451/api/v1/orders/addresses/4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab
 ###
-GET http://localhost:5451/orders/restaurants/3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11
+GET http://localhost:5451/api/v1/orders/restaurants/3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11
 ###
  "orderItems": [
 {    "id": "6f0b2af5-42e1-4b7f-b751-5a74b0cfb0e1",
@@ -15,8 +15,8 @@ GET http://localhost:5451/orders/restaurants/3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd1
 "unitPrice": 15}
 ],
 ###
-POST http://localhost:5451/orders
-Content-type: application/json
+POST http://localhost:5451/api/v1/orders
+Content-Type: application/json
 
 {
   "userId": "6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1",
@@ -25,8 +25,30 @@ Content-type: application/json
   "totalAmount": 150,
   "orderItems": [
     {
-      "itemId": "dea21446-d217-4a3b-9438-617c258393fe",
+      "productId": "dea21446-d217-4a3b-9438-617c258393fe",
+      "productName": "Pizza Margherita",
       "quantity": 4,
-      "unitPrice": 15}
+      "unitPrice": 15
+    }
   ]
 }
+###
+POST http://localhost:5451/api/v1/orders/orders
+Content-Type: application/json
+
+{
+  "userId": "6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1",
+  "addressId": "4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab",
+  "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11",
+  "orderItems": [
+    {
+      "id": "dea21446-d217-4a3b-9438-617c258393ff",
+      "productId": "dea21446-d217-4a3b-9438-617c258393fe",
+      "productName": "Pizza Margherita",
+      "quantity": 4,
+      "unitPrice": 15
+    }
+  ],
+  "totalAmount": 150
+}
+###
