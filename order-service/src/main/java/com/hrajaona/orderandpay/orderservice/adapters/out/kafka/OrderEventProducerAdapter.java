@@ -1,5 +1,6 @@
 package com.hrajaona.orderandpay.orderservice.adapters.out.kafka;
 
+import com.hrajaona.orderandpay.orderservice.application.port.out.OrderEventProducerPort;
 import com.hrajaona.orderandpay.orderservice.domain.event.OrderCreatedEvent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,23 +13,23 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @Slf4j
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class OrderEventProducer {
+public class OrderEventProducerAdapter implements OrderEventProducerPort {
     private final NewTopic topic;
     private final KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate;
 
-//    public OrderEventProducer(NewTopic topic, KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate) {
-//        this.topic = topic;
-//        this.kafkaTemplate = kafkaTemplate;
-//    }
-
-    public void sendMessage(OrderCreatedEvent orderCreatedEvent) {
-        log.info("Sending order event to kafka topic: {}", orderCreatedEvent.toString());
-
+    @Override
+    public void publishOrderCreated(OrderCreatedEvent orderCreatedEvent) {
+        log.info("Sending OrderCreatedEvent  orderId={}, userId={}, totalAmount={}, valueDate={}",
+                orderCreatedEvent.getId(),
+                orderCreatedEvent.getUserId(),
+                orderCreatedEvent.getTotalAmount(),
+                orderCreatedEvent.getValueDate());
         Message<OrderCreatedEvent> message = MessageBuilder
                 .withPayload(orderCreatedEvent)
                 .setHeader(KafkaHeaders.TOPIC, topic.name())

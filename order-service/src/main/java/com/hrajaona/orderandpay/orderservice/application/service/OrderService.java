@@ -11,7 +11,9 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.AddressC
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.RestaurantClientMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantResponseDto;
+import com.hrajaona.orderandpay.orderservice.adapters.out.kafka.mapper.OrderEventMapper;
 import com.hrajaona.orderandpay.orderservice.application.port.in.OrderUseCase;
+import com.hrajaona.orderandpay.orderservice.application.port.out.OrderEventProducerPort;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
@@ -35,6 +37,8 @@ public class OrderService implements OrderUseCase {
     private final RestaurantClient restaurantClient;
     private final RestaurantClientMapper restaurantClientMapper;
     private final OrderItemWebMapper orderItemWebMapper;
+    private final OrderEventProducerPort orderEventProducerPort;
+    private final OrderEventMapper  orderEventMapper;
 
     @Override
     public List<Order> getAllOrders() {
@@ -66,6 +70,12 @@ public class OrderService implements OrderUseCase {
 
         List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
 
-        return orderRepository.save(order, orderItems);
+        Order savedOrder = orderRepository.save(order, orderItems);
+
+        orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(savedOrder));
+
+        return savedOrder;
+
     }
+
 }

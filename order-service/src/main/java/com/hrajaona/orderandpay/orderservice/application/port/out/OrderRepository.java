@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface OrderRepository {
     List<Order> findAll();
     Order save(Order order, List<OrderItem> orderItems);

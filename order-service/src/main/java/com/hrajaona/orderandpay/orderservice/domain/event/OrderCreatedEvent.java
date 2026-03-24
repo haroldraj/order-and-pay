@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class OrderCreatedEvent {
-    private UUID orderId;
+    private UUID id;
     private UUID userId;
     private UUID restaurantId;
     private UUID addressId;

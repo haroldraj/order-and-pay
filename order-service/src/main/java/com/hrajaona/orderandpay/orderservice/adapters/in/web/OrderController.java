@@ -5,7 +5,7 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.Address
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantResponseDto;
-import com.hrajaona.orderandpay.orderservice.adapters.out.kafka.OrderEventProducer;
+import com.hrajaona.orderandpay.orderservice.adapters.out.kafka.OrderEventProducerAdapter;
 import com.hrajaona.orderandpay.orderservice.application.service.OrderService;
 import com.hrajaona.orderandpay.orderservice.domain.event.OrderCreatedEvent;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +23,7 @@ public class OrderController {
     private final OrderService orderService;
     private final AddressClient addressClient;
     private final RestaurantClient restaurantClient;
-    private final OrderEventProducer orderEventProducer;
+    private final OrderEventProducerAdapter orderEventProducerAdapter;
 
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) {
@@ -46,14 +45,10 @@ public class OrderController {
         return ResponseEntity.ok(restaurantClient.getRestaurant(id));
     }
 
-    @PostMapping("/orders")
-    public String placeOrder(@RequestBody OrderCreatedEvent  orderCreatedEvent) {
-        orderCreatedEvent.setOrderId(UUID.randomUUID());
-        orderCreatedEvent.setValueDate(LocalDateTime.now());
-
-        orderEventProducer.sendMessage(orderCreatedEvent);
-
-        return "Order placed Successfully...";
-    }
+//    @PostMapping("/orders")
+//    public String placeOrder(@RequestBody OrderCreatedEvent  orderCreatedEvent) {
+//        orderEventProducerAdapter.sendMessage(orderCreatedEvent);
+//        return "Order placed Successfully...";
+//    }
 
 }
