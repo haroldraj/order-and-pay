@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OrderUseCase {
     List<Order> getAllOrders();
-    Order create(OrderRequest orderRequest);
+    Order create(OrderRequest orderRequest, String correlationId);
 }

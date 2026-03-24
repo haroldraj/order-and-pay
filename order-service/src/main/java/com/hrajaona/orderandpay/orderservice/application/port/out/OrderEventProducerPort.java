@@ -1,8 +1,8 @@
 package com.hrajaona.orderandpay.orderservice.application.port.out;
 
 
-import com.hrajaona.orderandpay.orderservice.domain.event.OrderCreatedEvent;
+import com.hrajaona.library.events.OrderCreatedEvent;
 
 public interface OrderEventProducerPort {
-    void publishOrderCreated(OrderCreatedEvent orderCreatedEvent);
+    void publishOrderCreated(OrderCreatedEvent orderCreatedEvent, String correlationId);
 }

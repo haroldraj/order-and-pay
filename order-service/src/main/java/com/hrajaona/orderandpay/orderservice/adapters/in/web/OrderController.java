@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -23,11 +25,18 @@ public class OrderController {
     private final OrderService orderService;
     private final AddressClient addressClient;
     private final RestaurantClient restaurantClient;
-    private final OrderEventProducerAdapter orderEventProducerAdapter;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) {
-        return ResponseEntity.ok(orderService.create(orderRequest));
+    public ResponseEntity<Map<String, String>> createOrder(@RequestBody OrderRequest orderRequest) {
+        String correlationId = UUID.randomUUID().toString();
+
+        orderService.create(orderRequest, correlationId);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Order initiated");
+        response.put("correlationId", correlationId);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -44,11 +53,5 @@ public class OrderController {
     public ResponseEntity<RestaurantResponseDto> getRestaurant(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(restaurantClient.getRestaurant(id));
     }
-
-//    @PostMapping("/orders")
-//    public String placeOrder(@RequestBody OrderCreatedEvent  orderCreatedEvent) {
-//        orderEventProducerAdapter.sendMessage(orderCreatedEvent);
-//        return "Order placed Successfully...";
-//    }
 
 }

@@ -46,7 +46,7 @@ public class OrderService implements OrderUseCase {
     }
 
     @Override
-    public Order create(OrderRequest orderRequest) {
+    public Order create(OrderRequest orderRequest, String correlationId) {
         AddressResponseDto address =  addressClient.getAddress(orderRequest.getAddressId());
         RestaurantResponseDto restaurant = restaurantClient.getRestaurant(orderRequest.getRestaurantId());
 
@@ -68,13 +68,13 @@ public class OrderService implements OrderUseCase {
                 .restaurantSnapshot(restaurantClientMapper.toDomain(restaurant))
                 .build();
 
-        List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
+//        List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
 
-        Order savedOrder = orderRepository.save(order, orderItems);
+//        Order savedOrder = orderRepository.save(order, orderItems);
 
-        orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(savedOrder));
+        orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(order), correlationId);
 
-        return savedOrder;
+        return order;
 
     }
 

@@ -12,7 +12,7 @@ spring:
     password: password_order_db
 
   kafka:
-    bootstrap-servers: localhost:9191,localhost:9192,localhost:9193
+    bootstrap-servers: localhost:9191
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -22,14 +22,14 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: order-service-group
+      group-id: order-group
 
 
     properties:
       spring:
         json:
           trusted:
-            packages: "com.hrajaona.orderandpay.*"
+            packages: "com.hrajaona.*"
 
 
 springdoc:
@@ -41,7 +41,7 @@ server:
 
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 services:
     restaurant:
