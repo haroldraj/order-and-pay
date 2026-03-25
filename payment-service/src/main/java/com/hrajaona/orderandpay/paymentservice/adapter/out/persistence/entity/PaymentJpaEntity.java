@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -15,8 +16,6 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class PaymentJpaEntity {
     @Id
-    @GeneratedValue
-    @UuidGenerator
     private UUID id;
 
     @Column(nullable = false)
@@ -26,7 +25,7 @@ public class PaymentJpaEntity {
     private UUID userId;
 
     @Column
-    private double amount;
+    private BigDecimal amount;
 
     @Column
     private String method;

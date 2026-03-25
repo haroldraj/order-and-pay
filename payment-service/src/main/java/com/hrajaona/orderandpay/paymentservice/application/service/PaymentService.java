@@ -36,6 +36,7 @@ public class PaymentService implements PaymentUseCase {
         Payment payment = new Payment();
         LocalDateTime now = LocalDateTime.now();
 
+        payment.setId(UUID.randomUUID());
         payment.setAmount(paymentRequest.amount());
         payment.setMethod(paymentRequest.method());
         payment.setUserId(paymentRequest.userId());

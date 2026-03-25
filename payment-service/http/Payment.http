@@ -1,7 +1,7 @@
 ### GET request to example server
-GET http://localhost:5452/payments
+GET http://localhost:5452/api/v1/payments
 ###
-GET http://localhost:5452/payments/a1b2c3d4-0010-4000-8000-000000000010
+GET http://localhost:5452/api/v1/payments/a1b2c3d4-0010-4000-8000-000000000010
 ###
 PUT http://localhost:5452/payments/a1b2c3d4-0002-4000-8000-000000000002
 Content-type: application/json
