@@ -58,7 +58,7 @@ public class OrderService implements OrderUseCase {
                 .addressId(orderRequest.getAddressId())
                 .userId(orderRequest.getUserId())
                 .restaurantId(orderRequest.getRestaurantId())
-                .totalAmount(orderRequest.getTotalAmount())
+                .amount(orderRequest.getAmount())
                 .orderItems(new ArrayList<>())
                 .deliveryStatus(DeliveryStatus.NOT_STARTED)
                 .status(OrderStatus.PENDING_PAYMENT)

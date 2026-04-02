@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class OrderJpaEntity {
     private String status;
 
     @Column
-    private double totalAmount;
+    private BigDecimal amount;
 
     @Column
     private String paymentStatus;

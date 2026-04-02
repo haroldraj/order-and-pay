@@ -3,9 +3,9 @@ package com.hrajaona.orderandpay.orderservice.domain.model;
 import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.enums.OrderStatus;
 import com.hrajaona.library.enums.PaymentStatus;
-import com.hrajaona.orderandpay.orderservice.domain.event.OrderItemEvent;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +22,7 @@ public class Order {
     private UUID restaurantId;
     private List<OrderItem> orderItems;
     private OrderStatus status;
-    private double totalAmount;
+    private BigDecimal amount;
     private PaymentStatus paymentStatus;
     private DeliveryStatus deliveryStatus;
     private AddressSnapshot addressSnapshot;

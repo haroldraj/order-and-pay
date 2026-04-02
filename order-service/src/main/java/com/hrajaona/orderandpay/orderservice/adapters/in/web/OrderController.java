@@ -5,9 +5,7 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.Address
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantClient;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantResponseDto;
-import com.hrajaona.orderandpay.orderservice.adapters.out.kafka.OrderEventProducerAdapter;
 import com.hrajaona.orderandpay.orderservice.application.service.OrderService;
-import com.hrajaona.orderandpay.orderservice.domain.event.OrderCreatedEvent;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
