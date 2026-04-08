@@ -22,7 +22,7 @@ Content-Type: application/json
   "userId": "6f0b2af5-42e1-4b7f-b6b1-5a74b0cfb0e1",
  "addressId": "4a3a1c3e-2ef0-4707-bc3a-37e2f1a7b8ab",
   "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11",
-  "totalAmount": 150,
+  "amount": 150,
   "orderItems": [
     {
       "productId": "dea21446-d217-4a3b-9438-617c258393fe",

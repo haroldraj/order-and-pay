@@ -40,12 +40,13 @@ server:
 
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 kafka:
   topics:
     order-created: order.created
     payment-completed: payment.completed
     payment-failed: payment.failed
-    delivery-created: delivery.created
-    delivery-completed: delivery.completed
+
+  group-id:
+    payment: payment-group

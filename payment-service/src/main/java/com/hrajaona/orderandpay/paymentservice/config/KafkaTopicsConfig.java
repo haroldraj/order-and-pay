@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.orderservice.config;
+package com.hrajaona.orderandpay.paymentservice.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,14 +13,10 @@ import org.springframework.kafka.config.TopicBuilder;
 @Getter
 @Setter
 public class KafkaTopicsConfig {
-    private String orderCreated;
     private String paymentCompleted;
-    private String paymentFailed;
-    private String deliveryCreated;
-    private String deliveryCompleted;
 
     @Bean
-    public NewTopic orderCreatedTopic() {
-        return TopicBuilder.name(orderCreated).build();
+    public NewTopic paymentCompletedTopic() {
+        return TopicBuilder.name(paymentCompleted).build();
     }
 }

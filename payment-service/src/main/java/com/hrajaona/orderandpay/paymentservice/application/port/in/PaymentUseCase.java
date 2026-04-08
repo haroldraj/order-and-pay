@@ -1,6 +1,7 @@
 package com.hrajaona.orderandpay.paymentservice.application.port.in;
 
-import com.hrajaona.orderandpay.paymentservice.adapter.in.web.dto.PaymentRequest;
+import com.hrajaona.library.events.OrderCreatedEvent;
+import com.hrajaona.orderandpay.paymentservice.adapters.in.web.dto.PaymentRequest;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface PaymentUseCase {
     Payment getPaymentById(UUID id);
     List<Payment> getAllPayments();
     Payment updatePayment(UUID id, PaymentRequest paymentRequest);
+    void processOrderPayment(OrderCreatedEvent orderCreatedEvent, String correlationId);
 
 }

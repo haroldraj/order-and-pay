@@ -1,6 +1,6 @@
 package com.hrajaona.orderandpay.paymentservice.application.port.in;
 
-import com.hrajaona.orderandpay.paymentservice.adapter.in.web.dto.RefundRequest;
+import com.hrajaona.orderandpay.paymentservice.adapters.in.web.dto.RefundRequest;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Refund;
 
 import java.util.List;

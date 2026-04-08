@@ -1,7 +1,7 @@
 package com.hrajaona.orderandpay.paymentservice.application.service;
 
-import com.hrajaona.orderandpay.paymentservice.adapter.in.web.dto.RefundRequest;
-import com.hrajaona.orderandpay.paymentservice.adapter.out.persistence.mapper.RefundMapper;
+import com.hrajaona.orderandpay.paymentservice.adapters.in.web.dto.RefundRequest;
+import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.mapper.RefundMapper;
 import com.hrajaona.orderandpay.paymentservice.application.port.in.RefundUseCase;
 import com.hrajaona.orderandpay.paymentservice.application.port.out.RefundRepository;
 import com.hrajaona.orderandpay.paymentservice.domain.exception.RefundNotFoundException;
