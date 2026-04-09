@@ -68,6 +68,10 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hrajaona</groupId>
+            <artifactId>order-and-pay-library</artifactId>
+        </dependency>
 
     </dependencies>
 

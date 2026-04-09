@@ -52,12 +52,18 @@ services:
     address:
       base-url: http://localhost:5450/api/v1/addresses
       endpoints:
-        get-address: /{addressId}
+        get-address: /{id}
+
+    user:
+      base-url: http://localhost:5450/api/v1/users
+      endpoints:
+        get-user: /{id}
 
 
 kafka:
   topics:
     order-created: order.created
+    order-paid: order.paid
     payment-completed: payment.completed
     payment-failed: payment.failed
     delivery-created: delivery.created

@@ -14,6 +14,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Setter
 public class KafkaTopicsConfig {
     private String orderCreated;
+    private String orderPaid;
     private String paymentCompleted;
     private String paymentFailed;
     private String deliveryCreated;
@@ -22,5 +23,10 @@ public class KafkaTopicsConfig {
     @Bean
     public NewTopic orderCreatedTopic() {
         return TopicBuilder.name(orderCreated).build();
+    }
+
+    @Bean
+    public NewTopic orderPaidTopic() {
+        return TopicBuilder.name(orderPaid).build();
     }
 }

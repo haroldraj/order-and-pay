@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,20 @@ public class OrderService implements OrderUseCase {
 
         return order;
 
+    }
+
+    @Override
+    public void processOrderPayment(Order order, String correlationId) {
+        log.info("Processing order payment with correlationId={}", correlationId);
+
+
+        orderEventProducerPort.publishOrderPaid(order, correlationId);
+
+    }
+
+    @Override
+    public Order getOrderByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount) {
+        return orderRepository.findByIdAndUserIdAndAmount(id, userId, amount);
     }
 
 }

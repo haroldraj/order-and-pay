@@ -10,7 +10,10 @@ import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -39,5 +42,12 @@ public class OrderPersistenceAdapter implements OrderRepository {
         catch (Exception ex){
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public Order findByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount) {
+        return orderJpaRepository.findByIdAndUserIdAndAmount(id, userId, amount)
+                .map(orderPersistenceMapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("Order with id="+id+" not found"));
     }
 }

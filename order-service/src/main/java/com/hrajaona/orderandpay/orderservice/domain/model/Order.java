@@ -3,6 +3,7 @@ package com.hrajaona.orderandpay.orderservice.domain.model;
 import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.enums.OrderStatus;
 import com.hrajaona.library.enums.PaymentStatus;
+import com.hrajaona.library.model.AddressSnapshot;
 import lombok.*;
 
 import java.math.BigDecimal;

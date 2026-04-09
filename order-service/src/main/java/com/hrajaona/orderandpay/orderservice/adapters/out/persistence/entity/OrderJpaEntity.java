@@ -1,6 +1,6 @@
 package com.hrajaona.orderandpay.orderservice.adapters.out.persistence.entity;
 
-import com.hrajaona.orderandpay.orderservice.domain.model.AddressSnapshot;
+import com.hrajaona.library.model.AddressSnapshot;
 import com.hrajaona.orderandpay.orderservice.domain.model.RestaurantSnapshot;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

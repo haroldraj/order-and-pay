@@ -12,25 +12,34 @@ import org.springframework.context.annotation.Configuration;
 public class ServicesProperties {
     private Address address;
     private Restaurant restaurant;
+    private User user;
 
     @Getter
     @Setter
-    public static class Address{
+    public static class Address {
         private String baseUrl;
         private Endpoints endpoints;
     }
 
     @Getter
     @Setter
-    public static class Restaurant{
+    public static class Restaurant {
         private String baseUrl;
         private Endpoints endpoints;
     }
 
     @Getter
     @Setter
-    public static class Endpoints{
+    public static class User {
+        private String baseUrl;
+        private Endpoints endpoints;
+    }
+
+    @Getter
+    @Setter
+    public static class Endpoints {
         private String getAddress;
         private String getRestaurant;
+        private String getUser;
     }
 }
