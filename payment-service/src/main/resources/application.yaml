@@ -45,7 +45,7 @@ logging:
 kafka:
   topics:
     order-created: order.created
-    payment-completed: payment.completed
+    payment-events: payment.events
     payment-failed: payment.failed
 
   group-id:

@@ -13,10 +13,10 @@ import org.springframework.kafka.config.TopicBuilder;
 @Getter
 @Setter
 public class KafkaTopicsConfig {
-    private String paymentCompleted;
+    private String paymentEvents;
 
     @Bean
-    public NewTopic paymentCompletedTopic() {
-        return TopicBuilder.name(paymentCompleted).build();
+    public NewTopic paymentEventsTopic() {
+        return TopicBuilder.name(paymentEvents).build();
     }
 }

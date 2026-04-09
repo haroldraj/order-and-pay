@@ -25,8 +25,7 @@ import java.util.UUID;
 @Setter
 @RequiredArgsConstructor
 public class OrderEventProducerAdapter implements OrderEventProducerPort {
-    private final NewTopic orderCreatedTopic;
-    private final NewTopic orderPaidTopic;
+
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final OrderEventMapper orderEventMapper;
     private final UserClient userClient;
@@ -42,7 +41,7 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         log.info("Sending OrderCreatedEvent with correlationId={} and eventId= {}", correlationId, eventId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>(orderCreatedTopic.name(), orderCreatedEvent.getOrderId().toString(), orderCreatedEvent);
+        ProducerRecord<String, Object> record = new ProducerRecord<>("order.created", orderCreatedEvent.getOrderId().toString(), orderCreatedEvent);
 
         addHeaders(record, correlationId, ORDER_CREATED);
 
@@ -68,7 +67,7 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         log.info("Sending OrderPaidEvent with correlationId={} and eventId= {}", correlationId, eventId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>(orderPaidTopic.name(), orderPaidEvent.getOrderId().toString(), orderPaidEvent);
+        ProducerRecord<String, Object> record = new ProducerRecord<>("order.paid", orderPaidEvent.getOrderId().toString(), orderPaidEvent);
 
         addHeaders(record, correlationId, ORDER_PAID);
 

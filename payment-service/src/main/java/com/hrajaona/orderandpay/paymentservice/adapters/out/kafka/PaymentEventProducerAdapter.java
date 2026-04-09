@@ -20,7 +20,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class PaymentEventProducerAdapter implements PaymentEventProducer {
-    private final NewTopic paymentCompletedTopic;
+    private final NewTopic paymentEventsTopic;
     private final KafkaTemplate<String, PaymentCompletedEvent> kafkaTemplate;
 
     @Override
@@ -29,11 +29,13 @@ public class PaymentEventProducerAdapter implements PaymentEventProducer {
 
         PaymentCompletedEvent paymentCompletedEvent = new PaymentCompletedEvent();
 
-        log.info("Sending PaymentCompletedEvent with correlationId={} and eventId={}", correlationId, eventId);
+        log.info("Sending PaymentCompletedEvent with correlationId={} and eventId={} to topic={}", correlationId, eventId, paymentEventsTopic.name());
 
-        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(paymentCompletedTopic.name(), UUID.randomUUID().toString(), paymentCompletedEvent);
+        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(paymentEventsTopic.name(), UUID.randomUUID().toString(), paymentCompletedEvent);
 
-        record.headers().add("correlation-id", correlationId.getBytes());
+        record.headers().add("correlationId", correlationId.getBytes());
+        record.headers().add("eventType", "PAYMENT_COMPLETED".getBytes());
+
 
         kafkaTemplate.send(record);
 
