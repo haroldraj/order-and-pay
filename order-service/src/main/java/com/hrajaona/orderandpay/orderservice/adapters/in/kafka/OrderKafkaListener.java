@@ -33,7 +33,7 @@ public class OrderKafkaListener {
     }
 
     private String getCorrelationId(ConsumerRecord<?, ?> record) {
-        Header header = record.headers().lastHeader("correlation-id");
+        Header header = record.headers().lastHeader("correlationId");
         return header != null ? new String(header.value()) : null;
     }
 }
