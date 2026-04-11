@@ -9,10 +9,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class PaymentMessageProcessor {
+public class PaymentEventProcessor {
     private final Map<String, PaymentEventHandler<?>> handlers;
 
-    public PaymentMessageProcessor(List<PaymentEventHandler<?>> handlerList) {
+    public PaymentEventProcessor(List<PaymentEventHandler<?>> handlerList) {
         this.handlers = handlerList.stream()
                 .collect(Collectors.toMap(PaymentEventHandler::support, Function.identity()));
     }
@@ -30,7 +30,7 @@ public class PaymentMessageProcessor {
     @SuppressWarnings("unchecked")
     private <T> void dispatch(PaymentEventHandler<?> rawHandler, Object event, String correlationId) {
         PaymentEventHandler<T> handler = (PaymentEventHandler<T>) rawHandler;
-        T castedEvent = handler.eventClass().cast(event);
-        handler.handle(castedEvent, correlationId);
+        handler.handle((T) event, correlationId);
+        //        T castedEvent = handler.eventClass().cast(event);
     }
 }

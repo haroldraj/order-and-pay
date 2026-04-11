@@ -43,7 +43,7 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         ProducerRecord<String, Object> record = new ProducerRecord<>("order.created", orderCreatedEvent.getOrderId().toString(), orderCreatedEvent);
 
-        addHeaders(record, correlationId, ORDER_CREATED);
+        addHeaders(record, correlationId, eventId.toString(), ORDER_CREATED);
 
         kafkaTemplate.send(record);
     }
@@ -69,14 +69,15 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         ProducerRecord<String, Object> record = new ProducerRecord<>("order.paid", orderPaidEvent.getOrderId().toString(), orderPaidEvent);
 
-        addHeaders(record, correlationId, ORDER_PAID);
+        addHeaders(record, correlationId, eventId.toString(), ORDER_PAID);
 
         kafkaTemplate.send(record);
     }
 
-    private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventType) {
+    private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventId, String eventType) {
         record.headers().add("correlationId", correlationId.getBytes());
         record.headers().add("eventType", eventType.getBytes());
+        record.headers().add("eventId", eventId.getBytes());
         record.headers().add("producer", ORDER_SERVICE.getBytes());
     }
 }

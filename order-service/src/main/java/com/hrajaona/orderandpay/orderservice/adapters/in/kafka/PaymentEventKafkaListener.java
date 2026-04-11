@@ -2,7 +2,7 @@ package com.hrajaona.orderandpay.orderservice.adapters.in.kafka;
 
 import com.hrajaona.library.events.PaymentCompletedEvent;
 import com.hrajaona.orderandpay.orderservice.application.service.OrderService;
-import com.hrajaona.orderandpay.orderservice.application.service.payment.PaymentMessageProcessor;
+import com.hrajaona.orderandpay.orderservice.application.service.payment.PaymentEventProcessor;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentEventKafkaListener {
     private final OrderService orderService;
-    private final PaymentMessageProcessor paymentMessageProcessor;
+    private final PaymentEventProcessor paymentEventProcessor;
 
     @KafkaListener(topics = "payment.events", groupId = "order-group")
     public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> record) {
@@ -35,7 +35,7 @@ public class PaymentEventKafkaListener {
 
 //     orderService.processOrderPayment(order, correlationId);
 
-     paymentMessageProcessor.process(record.value(), eventType, correlationId);
+     paymentEventProcessor.process(record.value(), eventType, correlationId);
 
     }
 
