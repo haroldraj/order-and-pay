@@ -52,18 +52,7 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
     public void publishOrderPaid(Order order, String correlationId) {
         UUID eventId = UUID.randomUUID();
         UserResponseDto userResponseDto = userClient.getUser(order.getUserId());
-        CustomerSnapshot customerSnapshot = new CustomerSnapshot(userResponseDto.getUserName(), userResponseDto.getPhoneNumber());
-
-        OrderPaidEvent orderPaidEvent = new OrderPaidEvent(
-                eventId,
-                order.getId(),
-                order.getAmount(),
-                order.getValueDate(),
-                order.getRestaurantId(),
-                customerSnapshot,
-                order.getAddressSnapshot(),
-                orderEventMapper.itemToPayloadList(order.getOrderItems()),
-                null);
+        OrderPaidEvent orderPaidEvent = getOrderPaidEvent(order, userResponseDto, eventId);
 
         log.info("Sending OrderPaidEvent with correlationId={} and eventId= {}", correlationId, eventId);
 
@@ -72,6 +61,23 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
         addHeaders(record, correlationId, eventId.toString(), ORDER_PAID);
 
         kafkaTemplate.send(record);
+    }
+
+    private OrderPaidEvent getOrderPaidEvent(Order order, UserResponseDto userResponseDto, UUID eventId) {
+        CustomerSnapshot customerSnapshot = new CustomerSnapshot(userResponseDto.getUserName(), userResponseDto.getPhoneNumber());
+
+        return new OrderPaidEvent(
+                eventId,
+                order.getId(),
+                order.getAmount(),
+                order.getValueDate(),
+                order.getRestaurantId(),
+                customerSnapshot,
+                order.getAddressSnapshot(),
+            null,
+//
+//                orderEventMapper.itemToPayloadList(order.getOrderItems()),
+                null);
     }
 
     private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventId, String eventType) {

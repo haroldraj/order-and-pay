@@ -10,11 +10,35 @@ import java.util.List;
 import java.util.UUID;
 
 public class OrderPaidEvent extends OrderEvent {
-    private final UUID restaurantId;
-    private final CustomerSnapshot customer;
-    private final AddressSnapshot deliveryAddress;
-    private final List<OrderItemPayload> items;
-    private final String note;
+    private UUID restaurantId;
+    private CustomerSnapshot customer;
+    private AddressSnapshot deliveryAddress;
+    private List<OrderItemPayload> items;
+
+    public OrderPaidEvent() {
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setItems(List<OrderItemPayload> items) {
+        this.items = items;
+    }
+
+    public void setDeliveryAddress(AddressSnapshot deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public void setCustomer(CustomerSnapshot customer) {
+        this.customer = customer;
+    }
+
+    public void setRestaurantId(UUID restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    private String note;
 
     public UUID getRestaurantId() {
         return restaurantId;
