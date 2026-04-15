@@ -84,6 +84,5 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
         record.headers().add("correlationId", correlationId.getBytes());
         record.headers().add("eventType", eventType.getBytes());
         record.headers().add("eventId", eventId.getBytes());
-        record.headers().add("producer", ORDER_SERVICE.getBytes());
     }
 }

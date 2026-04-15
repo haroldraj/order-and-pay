@@ -40,7 +40,7 @@ public class OrderPersistenceAdapter implements OrderRepository {
             return  orderPersistenceMapper.toDomain(savedOrder);
         }
         catch (Exception ex){
-            throw new RuntimeException(ex);
+            throw new RuntimeException("Cannot save order | "+ex);
         }
     }
 

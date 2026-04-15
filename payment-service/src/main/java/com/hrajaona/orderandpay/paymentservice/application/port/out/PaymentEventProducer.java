@@ -1,7 +1,7 @@
 package com.hrajaona.orderandpay.paymentservice.application.port.out;
 
-import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
+import com.hrajaona.library.events.PaymentCompletedEvent;
 
 public interface PaymentEventProducer {
-    void publishPaymentCompleted(Payment payment, String correlationId);
+    void publishPaymentCompleted(PaymentCompletedEvent event, String correlationId);
 }

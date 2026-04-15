@@ -70,6 +70,6 @@ public class PaymentService implements PaymentUseCase {
     public void processOrderPayment(OrderCreatedEvent orderCreatedEvent, String correlationId) {
         Payment payment  = new Payment();
         log.info("Processing Payment of OrderCreatedEvent with correlationId={}", correlationId);
-        paymentEventProducerAdapter.publishPaymentCompleted(payment, correlationId);
+//        paymentEventProducerAdapter.publishPaymentCompleted(payment, correlationId);
     }
 }

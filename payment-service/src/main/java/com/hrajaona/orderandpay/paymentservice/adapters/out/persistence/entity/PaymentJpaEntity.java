@@ -3,6 +3,8 @@ package com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,10 +25,10 @@ public class PaymentJpaEntity {
     @Column(nullable = false)
     private UUID userId;
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal amount;
 
-    @Column
+    @Column(nullable = false)
     private String method;
 
     @Column
@@ -38,10 +40,12 @@ public class PaymentJpaEntity {
     @Column
     private LocalDateTime valueDate;
 
-    @Column
+    @Column(updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "payment")

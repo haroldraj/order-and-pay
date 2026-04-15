@@ -20,6 +20,7 @@ public class PaymentPersistenceAdapter implements PaymentRepository {
 
     @Override
     public Payment save(Payment payment) {
+        payment.setId(UUID.randomUUID());
         PaymentJpaEntity savedPayment = paymentJpaRepository.save(paymentMapper.toEntity(payment));
         return  paymentMapper.toDomain(savedPayment);
     }
@@ -35,5 +36,11 @@ public class PaymentPersistenceAdapter implements PaymentRepository {
     @Override
     public Optional<Payment> findById(UUID id) {
         return paymentJpaRepository.findById(id).map(paymentMapper::toDomain);
+    }
+
+    @Override
+    public Optional<Payment> findByOrderIdAndUserId(UUID orderId, UUID userId) {
+        return paymentJpaRepository.findByOrderIdAndUserId(orderId, userId)
+                .map(paymentMapper::toDomain);
     }
 }

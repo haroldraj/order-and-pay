@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Payment {
     private UUID id;
     private UUID orderId;
@@ -22,4 +23,13 @@ public class Payment {
     private LocalDateTime valueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void markAsCompleted() {
+        this.status = PaymentStatus.COMPLETED;
+        this.method = "CARD";
+    }
+
+    public void markAsFailed() {
+        this.status = PaymentStatus.FAILED;
+    }
 }

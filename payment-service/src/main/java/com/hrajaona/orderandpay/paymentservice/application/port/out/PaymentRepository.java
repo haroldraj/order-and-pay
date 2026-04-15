@@ -10,4 +10,5 @@ public interface PaymentRepository {
     Payment save(Payment payment);
     List<Payment> findAll();
     Optional<Payment> findById(UUID id);
+    Optional<Payment> findByOrderIdAndUserId(UUID orderId, UUID userId);
 }

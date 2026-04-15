@@ -55,7 +55,6 @@ public class OrderService implements OrderUseCase {
 
         Order order = Order.builder()
                 .id(UUID.randomUUID())
-                .updatedAt(LocalDateTime.now())
                 .addressId(orderRequest.getAddressId())
                 .userId(orderRequest.getUserId())
                 .restaurantId(orderRequest.getRestaurantId())
@@ -69,13 +68,13 @@ public class OrderService implements OrderUseCase {
                 .restaurantSnapshot(restaurantClientMapper.toDomain(restaurant))
                 .build();
 
-//        List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
+        List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
 
-//        Order savedOrder = orderRepository.save(order, orderItems);
+        Order savedOrder = orderRepository.save(order, orderItems);
 
-        orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(order), correlationId);
+        orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(savedOrder), correlationId);
 
-        return order;
+        return savedOrder;
 
     }
 

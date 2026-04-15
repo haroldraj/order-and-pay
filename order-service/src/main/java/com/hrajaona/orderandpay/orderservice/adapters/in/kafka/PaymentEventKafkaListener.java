@@ -19,21 +19,11 @@ public class PaymentEventKafkaListener {
     private final PaymentEventProcessor paymentEventProcessor;
 
     @KafkaListener(topics = "payment.events", groupId = "order-group")
-    public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> record) {
+    public void listenPaymentCompleted(ConsumerRecord<String, Object> record) {
      String correlationId = getCorrelationId(record);
      String eventType = getEventType(record);
 
-     log.info("Received PaymentCompletedEvent with correlationId={}", correlationId);
-
-     Order order = new Order();
-
-
-//     Order order = orderService.getOrderByIdAndUserIdAndAmount(
-//             record.value().getOrderId(),
-//             record.value().getUserId(),
-//             record.value().getAmount());
-
-//     orderService.processOrderPayment(order, correlationId);
+     log.info("Received {} event with correlationId={}", eventType, correlationId);
 
      paymentEventProcessor.process(record.value(), eventType, correlationId);
 
