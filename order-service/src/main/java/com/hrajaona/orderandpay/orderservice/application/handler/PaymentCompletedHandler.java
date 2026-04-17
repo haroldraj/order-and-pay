@@ -11,6 +11,7 @@ import com.hrajaona.orderandpay.orderservice.application.port.in.PaymentComplete
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderEventProducerPort;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,9 +24,9 @@ public class PaymentCompletedHandler implements PaymentCompletedUseCase {
     private final OrderApplicationMapper  orderApplicationMapper;
     private final OrderEventProducerPort orderEventProducerPort;
     private final UserClient userClient;
-    private final AddressClient addressClient;
 
     @Override
+    @Transactional
     public void handle(PaymentCompletedEvent event, String correlationId) {
         Order order = orderRepository.findByIdAndUserId(event.getOrderId(), event.getUserId());
         order.markAsPaid();
@@ -35,10 +36,8 @@ public class PaymentCompletedHandler implements PaymentCompletedUseCase {
         OrderPaidEvent orderPaidEvent = orderApplicationMapper.toOrderPaidEvent(order);
 
         CustomerSnapshot customer = userClient.getUser(order.getUserId());
-//        AddressSnapshot deliveryAddress = addressClient.getAddress(order.getAddressId());
 
         orderPaidEvent.setCustomer(customer);
-//        orderPaidEvent.setDeliveryAddress(deliveryAddress);
 
         orderEventProducerPort.publishOrderPaid(orderApplicationMapper.toOrderPaidEvent(order), correlationId);
 

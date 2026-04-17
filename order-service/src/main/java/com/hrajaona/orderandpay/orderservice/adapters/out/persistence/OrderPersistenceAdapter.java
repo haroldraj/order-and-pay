@@ -5,6 +5,7 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.mapper.Ord
 import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.mapper.OrderPersistenceMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.repository.OrderJpaRepository;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
+import com.hrajaona.orderandpay.orderservice.domain.exception.OrderNotFoundException;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class OrderPersistenceAdapter implements OrderRepository {
     public Order findByIdAndUserId(UUID id, UUID userId) {
         return orderJpaRepository.findByIdAndUserId(id, userId)
                 .map(orderPersistenceMapper::toDomain)
-                .orElseThrow(() -> new RuntimeException("Order with id " + id + "not found"));
+                .orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     @Override
@@ -55,7 +56,7 @@ public class OrderPersistenceAdapter implements OrderRepository {
     public Order findByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount) {
         return orderJpaRepository.findByIdAndUserIdAndAmount(id, userId, amount)
                 .map(orderPersistenceMapper::toDomain)
-                .orElseThrow(() -> new RuntimeException("Order with id="+id+" not found"));
+                .orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     @Override

@@ -52,8 +52,6 @@ public class OrderService implements OrderUseCase {
         AddressSnapshot address =  addressClient.getAddress(orderRequest.getAddressId());
         RestaurantResponseDto restaurant = restaurantClient.getRestaurant(orderRequest.getRestaurantId());
 
-        log.info(address.toString());
-
         Order order = Order.builder()
                 .id(UUID.randomUUID())
                 .addressId(orderRequest.getAddressId())

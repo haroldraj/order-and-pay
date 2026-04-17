@@ -15,34 +15,23 @@ import org.springframework.stereotype.Component;
 public class PaymentEventKafkaListener {
     private final PaymentCompletedUseCase paymentCompletedUseCase;
 
-//    @KafkaListener(topics = "payment.events", groupId = "order-group")
-//    public void listenPaymentCompleted(ConsumerRecord<String, Object> record) {
-//     String correlationId = getCorrelationId(record);
-//     String eventType = getEventType(record);
-//
-//     log.info("Received {} event with correlationId={}", eventType, correlationId);
-//
-//     paymentEventProcessor.process(record.value(), eventType, correlationId);
-//
-//    }
-
     @KafkaListener(topics = "payment.completed", groupId = "order-group")
-    public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> record) {
-        String correlationId = getCorrelationId(record);
-        String eventType = getEventType(record);
+    public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> paymentRecord) {
+        String correlationId = getCorrelationId(paymentRecord);
+        String eventType = getEventType(paymentRecord);
 
         log.info("Received {} event with correlationId {}", eventType, correlationId);
 
-        paymentCompletedUseCase.handle(record.value(), correlationId);
+        paymentCompletedUseCase.handle(paymentRecord.value(), correlationId);
     }
 
-    private String getCorrelationId(ConsumerRecord<?, ?> record) {
-        Header header = record.headers().lastHeader("correlationId");
+    private String getCorrelationId(ConsumerRecord<String, PaymentCompletedEvent> paymentRecord) {
+        Header header = paymentRecord.headers().lastHeader("correlationId");
         return header != null ? new String(header.value()) : null;
     }
 
-    private String getEventType(ConsumerRecord<?, ?> record) {
-        Header header = record.headers().lastHeader("eventType");
+    private String getEventType(ConsumerRecord<String, PaymentCompletedEvent> paymentRecord) {
+        Header header = paymentRecord.headers().lastHeader("eventType");
         return header!= null ? new String(header.value()) : null;
     }
 }
