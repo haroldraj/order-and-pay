@@ -1,5 +1,6 @@
 package com.hrajaona.orderandpay.orderservice.adapters.out.client.user;
 
+import com.hrajaona.library.model.CustomerSnapshot;
 import com.hrajaona.orderandpay.orderservice.config.ServicesProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,11 +16,11 @@ public class UserClient {
     private final RestTemplate restTemplate;
     private final ServicesProperties servicesProperties;
 
-    public UserResponseDto getUser(UUID id) {
+    public CustomerSnapshot getUser(UUID id) {
         String url = servicesProperties.getUser().getBaseUrl()
                 + servicesProperties.getUser().getEndpoints().getGetUser();
 
-        return restTemplate.getForObject(url, UserResponseDto.class, id);
+        return restTemplate.getForObject(url, CustomerSnapshot.class, id);
     }
 
 }

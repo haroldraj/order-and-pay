@@ -3,6 +3,7 @@ package com.hrajaona.orderandpay.orderservice.application.service;
 import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.enums.OrderStatus;
 import com.hrajaona.library.enums.PaymentStatus;
+import com.hrajaona.library.model.AddressSnapshot;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.dto.OrderRequest;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.mapper.OrderItemWebMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressClient;
@@ -48,7 +49,7 @@ public class OrderService implements OrderUseCase {
 
     @Override
     public Order create(OrderRequest orderRequest, String correlationId) {
-        AddressResponseDto address =  addressClient.getAddress(orderRequest.getAddressId());
+        AddressSnapshot address =  addressClient.getAddress(orderRequest.getAddressId());
         RestaurantResponseDto restaurant = restaurantClient.getRestaurant(orderRequest.getRestaurantId());
 
         log.info(address.toString());
@@ -64,7 +65,7 @@ public class OrderService implements OrderUseCase {
                 .status(OrderStatus.PENDING_PAYMENT)
                 .paymentStatus(PaymentStatus.PENDING)
                 .valueDate(LocalDateTime.now())
-                .addressSnapshot(addressClientMapper.toDomain(address))
+                .addressSnapshot(address)
                 .restaurantSnapshot(restaurantClientMapper.toDomain(restaurant))
                 .build();
 
@@ -83,7 +84,7 @@ public class OrderService implements OrderUseCase {
         log.info("Processing order payment with correlationId={}", correlationId);
 
 
-        orderEventProducerPort.publishOrderPaid(order, correlationId);
+//        orderEventProducerPort.publishOrderPaid(order, correlationId);
 
     }
 

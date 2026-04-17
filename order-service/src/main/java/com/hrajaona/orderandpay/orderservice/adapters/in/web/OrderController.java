@@ -42,14 +42,14 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 
-    @GetMapping("/addresses/{id}")
-    public ResponseEntity<AddressResponseDto> getAddress(@PathVariable("id") UUID id) {
-        return  ResponseEntity.ok(addressClient.getAddress(id));
-    }
-
-    @GetMapping("/restaurants/{id}")
-    public ResponseEntity<RestaurantResponseDto> getRestaurant(@PathVariable("id") UUID id) {
-        return ResponseEntity.ok(restaurantClient.getRestaurant(id));
-    }
+//    @GetMapping("/addresses/{id}")
+//    public ResponseEntity<AddressResponseDto> getAddress(@PathVariable("id") UUID id) {
+//        return  ResponseEntity.ok(addressClient.getAddress(id));
+//    }
+//
+//    @GetMapping("/restaurants/{id}")
+//    public ResponseEntity<RestaurantResponseDto> getRestaurant(@PathVariable("id") UUID id) {
+//        return ResponseEntity.ok(restaurantClient.getRestaurant(id));
+//    }
 
 }

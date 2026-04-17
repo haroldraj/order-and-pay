@@ -29,60 +29,46 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final OrderEventMapper orderEventMapper;
     private final UserClient userClient;
-    private final String ORDER_CREATED = "ORDER_CREATED";
-    private final String ORDER_SERVICE = "ORDER_SERVICE";
-    private final String ORDER_PAID = "ORDER_PAID";
+    private final String ORDER_CREATED_EVENT = "ORDER_CREATED";
+    private final String ORDER_CREATED_TOPIC = "order.created";
+    private final String ORDER_PAID_EVENT = "ORDER_PAID";
+    private final String ORDER_PAID_TOPIC = "order.paid";
 
     @Override
     public void publishOrderCreated(OrderCreatedEvent orderCreatedEvent, String correlationId) {
 
-        UUID eventId = UUID.randomUUID();
-        orderCreatedEvent.setEventId(eventId);
+        orderCreatedEvent.setEventId(UUID.randomUUID());
 
-        log.info("Sending OrderCreatedEvent with correlationId={} and eventId= {}", correlationId, eventId);
+        logInfoSendingEvent(ORDER_CREATED_EVENT, correlationId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>("order.created", orderCreatedEvent.getOrderId().toString(), orderCreatedEvent);
+        ProducerRecord<String, Object> record = new ProducerRecord<>(ORDER_CREATED_TOPIC, orderCreatedEvent.getOrderId().toString(), orderCreatedEvent);
 
-        addHeaders(record, correlationId, eventId.toString(), ORDER_CREATED);
+        addHeaders(record, correlationId, ORDER_CREATED_EVENT);
 
         kafkaTemplate.send(record);
     }
 
     @Override
-    public void publishOrderPaid(Order order, String correlationId) {
-        UUID eventId = UUID.randomUUID();
-        UserResponseDto userResponseDto = userClient.getUser(order.getUserId());
-        OrderPaidEvent orderPaidEvent = getOrderPaidEvent(order, userResponseDto, eventId);
+    public void publishOrderPaid(OrderPaidEvent event, String correlationId) {
+        event.setEventId(UUID.randomUUID());
+//        UserResponseDto userResponseDto = userClient.getUser(order.getUserId());
+//        OrderPaidEvent orderPaidEvent = getOrderPaidEvent(order, userResponseDto, eventId);
 
-        log.info("Sending OrderPaidEvent with correlationId={} and eventId= {}", correlationId, eventId);
+        logInfoSendingEvent(ORDER_PAID_EVENT, correlationId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>("order.paid", orderPaidEvent.getOrderId().toString(), orderPaidEvent);
+        ProducerRecord<String, Object> record = new ProducerRecord<>(ORDER_PAID_EVENT, event.getOrderId().toString(), event);
 
-        addHeaders(record, correlationId, eventId.toString(), ORDER_PAID);
+        addHeaders(record, correlationId, ORDER_PAID_EVENT);
 
         kafkaTemplate.send(record);
     }
 
-    private OrderPaidEvent getOrderPaidEvent(Order order, UserResponseDto userResponseDto, UUID eventId) {
-        CustomerSnapshot customerSnapshot = new CustomerSnapshot(userResponseDto.getUserName(), userResponseDto.getPhoneNumber());
-
-        return new OrderPaidEvent(
-                eventId,
-                order.getId(),
-                order.getAmount(),
-                order.getValueDate(),
-                order.getRestaurantId(),
-                customerSnapshot,
-                order.getAddressSnapshot(),
-            null,
-//
-//                orderEventMapper.itemToPayloadList(order.getOrderItems()),
-                null);
-    }
-
-    private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventId, String eventType) {
+    private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventType) {
         record.headers().add("correlationId", correlationId.getBytes());
         record.headers().add("eventType", eventType.getBytes());
-        record.headers().add("eventId", eventId.getBytes());
+    }
+
+    private void logInfoSendingEvent(String eventType, String correlationId) {
+        log.info("Sending {} event with correlationId {}", eventType, correlationId);
     }
 }

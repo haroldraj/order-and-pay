@@ -1,7 +1,6 @@
 package com.hrajaona.orderandpay.paymentservice.application.handler;
 
 import com.hrajaona.library.events.OrderCreatedEvent;
-import com.hrajaona.library.events.PaymentCompletedEvent;
 import com.hrajaona.orderandpay.paymentservice.application.mapper.PaymentApplicationMapper;
 import com.hrajaona.orderandpay.paymentservice.application.port.in.OrderCreatedUseCase;
 import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentEventProducer;

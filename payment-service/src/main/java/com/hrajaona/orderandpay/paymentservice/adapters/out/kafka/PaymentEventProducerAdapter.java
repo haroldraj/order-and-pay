@@ -23,17 +23,17 @@ public class PaymentEventProducerAdapter implements PaymentEventProducer {
     private final NewTopic paymentEventsTopic;
     private final KafkaTemplate<String, PaymentCompletedEvent> kafkaTemplate;
     private final String PAYMENT_COMPLETED_EVENT = "PAYMENT_COMPLETED";
-    private final String PAYMENT_EVENT_TOPIC = "payment.events";
+    private final String PAYMENT_COMPLETED_TOPIC = "payment.completed";
 
     @Override
     public void publishPaymentCompleted(PaymentCompletedEvent payment , String correlationId) {
         UUID eventId = UUID.randomUUID();
 
-       payment.setEventId(eventId);
+        payment.setEventId(eventId);
 
-        log.info("Sending PaymentCompletedEvent with correlationId={}", correlationId);
+        log.info("Sending {} event with correlationId {}", PAYMENT_COMPLETED_EVENT, correlationId);
 
-        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(PAYMENT_EVENT_TOPIC, payment.getPaymentId().toString(), payment);
+        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(PAYMENT_COMPLETED_TOPIC, payment.getPaymentId().toString(), payment);
 
         record.headers().add("correlationId", correlationId.getBytes());
         record.headers().add("eventType", PAYMENT_COMPLETED_EVENT.getBytes());

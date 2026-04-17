@@ -30,4 +30,9 @@ public class Order {
     private RestaurantSnapshot restaurantSnapshot;
     private LocalDateTime valueDate;
     private LocalDateTime updatedAt;
+
+    public void markAsPaid() {
+        this.status = OrderStatus.PAID;
+        this.paymentStatus = PaymentStatus.COMPLETED;
+    }
 }

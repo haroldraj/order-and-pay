@@ -1,9 +1,7 @@
 package com.hrajaona.orderandpay.orderservice.adapters.in.kafka;
 
 import com.hrajaona.library.events.PaymentCompletedEvent;
-import com.hrajaona.orderandpay.orderservice.application.service.OrderService;
-import com.hrajaona.orderandpay.orderservice.application.service.payment.PaymentEventProcessor;
-import com.hrajaona.orderandpay.orderservice.domain.model.Order;
+import com.hrajaona.orderandpay.orderservice.application.port.in.PaymentCompletedUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,18 +13,27 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PaymentEventKafkaListener {
-    private final OrderService orderService;
-    private final PaymentEventProcessor paymentEventProcessor;
+    private final PaymentCompletedUseCase paymentCompletedUseCase;
 
-    @KafkaListener(topics = "payment.events", groupId = "order-group")
-    public void listenPaymentCompleted(ConsumerRecord<String, Object> record) {
-     String correlationId = getCorrelationId(record);
-     String eventType = getEventType(record);
+//    @KafkaListener(topics = "payment.events", groupId = "order-group")
+//    public void listenPaymentCompleted(ConsumerRecord<String, Object> record) {
+//     String correlationId = getCorrelationId(record);
+//     String eventType = getEventType(record);
+//
+//     log.info("Received {} event with correlationId={}", eventType, correlationId);
+//
+//     paymentEventProcessor.process(record.value(), eventType, correlationId);
+//
+//    }
 
-     log.info("Received {} event with correlationId={}", eventType, correlationId);
+    @KafkaListener(topics = "payment.completed", groupId = "order-group")
+    public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> record) {
+        String correlationId = getCorrelationId(record);
+        String eventType = getEventType(record);
 
-     paymentEventProcessor.process(record.value(), eventType, correlationId);
+        log.info("Received {} event with correlationId {}", eventType, correlationId);
 
+        paymentCompletedUseCase.handle(record.value(), correlationId);
     }
 
     private String getCorrelationId(ConsumerRecord<?, ?> record) {

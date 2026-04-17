@@ -31,6 +31,13 @@ public class OrderPersistenceAdapter implements OrderRepository {
     }
 
     @Override
+    public Order findByIdAndUserId(UUID id, UUID userId) {
+        return orderJpaRepository.findByIdAndUserId(id, userId)
+                .map(orderPersistenceMapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("Order with id " + id + "not found"));
+    }
+
+    @Override
     public Order save(Order order, List<OrderItem> orderItems) {
         try{
             OrderJpaEntity newOrder = orderPersistenceMapper.toEntity(order);
@@ -49,5 +56,10 @@ public class OrderPersistenceAdapter implements OrderRepository {
         return orderJpaRepository.findByIdAndUserIdAndAmount(id, userId, amount)
                 .map(orderPersistenceMapper::toDomain)
                 .orElseThrow(() -> new RuntimeException("Order with id="+id+" not found"));
+    }
+
+    @Override
+    public void save(Order order) {
+        orderJpaRepository.save(orderPersistenceMapper.toEntity(order));
     }
 }

@@ -20,4 +20,8 @@ public interface OrderJpaRepository extends JpaRepository<OrderJpaEntity, UUID> 
 //            @Param("userId") UUID userId,
 //            @Param("amount") BigDecimal amount);
 
+    Optional<OrderJpaEntity> findByIdAndUserId(UUID id, UUID userId);
+
+//    Optional<OrderJpaEntity> updateOrInsert(OrderJpaEntity orderJpaEntity);
+
 }
