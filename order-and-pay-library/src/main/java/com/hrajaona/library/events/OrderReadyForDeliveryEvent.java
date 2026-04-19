@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderReadyForDelivery extends OrderEvent{
+public class OrderReadyForDeliveryEvent extends OrderEvent{
     private UUID restaurantId;
     private CustomerSnapshot customer;
     private AddressSnapshot deliveryAddress;
@@ -47,7 +47,7 @@ public class OrderReadyForDelivery extends OrderEvent{
         return items;
     }
 
-    public OrderReadyForDelivery(UUID eventId, UUID orderId, BigDecimal amount, LocalDateTime valueDate, UUID restaurantId, CustomerSnapshot customer, AddressSnapshot deliveryAddress, List<OrderItemPayload> items) {
+    public OrderReadyForDeliveryEvent(UUID eventId, UUID orderId, BigDecimal amount, LocalDateTime valueDate, UUID restaurantId, CustomerSnapshot customer, AddressSnapshot deliveryAddress, List<OrderItemPayload> items) {
         super(eventId, orderId, amount, valueDate);
         this.restaurantId = restaurantId;
         this.customer = customer;
@@ -55,6 +55,6 @@ public class OrderReadyForDelivery extends OrderEvent{
         this.items = items;
     }
 
-    public OrderReadyForDelivery() {
+    public OrderReadyForDeliveryEvent() {
     }
 }

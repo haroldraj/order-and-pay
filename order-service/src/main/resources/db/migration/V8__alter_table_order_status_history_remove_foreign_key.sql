@@ -1,0 +1,2 @@
+ALTER TABLE order_status_history
+DROP CONSTRAINT order_status_history_order_id_fkey;

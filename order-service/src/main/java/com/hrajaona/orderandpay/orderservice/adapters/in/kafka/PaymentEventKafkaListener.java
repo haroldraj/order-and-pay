@@ -1,6 +1,8 @@
 package com.hrajaona.orderandpay.orderservice.adapters.in.kafka;
 
 import com.hrajaona.library.events.PaymentCompletedEvent;
+import com.hrajaona.library.messaging.KafkaTopics;
+import com.hrajaona.library.messaging.ServiceGroupId;
 import com.hrajaona.orderandpay.orderservice.application.port.in.PaymentCompletedUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class PaymentEventKafkaListener {
     private final PaymentCompletedUseCase paymentCompletedUseCase;
 
-    @KafkaListener(topics = "payment.completed", groupId = "order-group")
+    @KafkaListener(topics = KafkaTopics.PAYMENT_COMPLETED, groupId = ServiceGroupId.ORDER_GROUP)
     public void listenPaymentCompleted(ConsumerRecord<String, PaymentCompletedEvent> paymentRecord) {
         String correlationId = getCorrelationId(paymentRecord);
         String eventType = getEventType(paymentRecord);

@@ -7,7 +7,6 @@ import com.hrajaona.library.model.AddressSnapshot;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.dto.OrderRequest;
 import com.hrajaona.orderandpay.orderservice.adapters.in.web.mapper.OrderItemWebMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressClient;
-import com.hrajaona.orderandpay.orderservice.adapters.out.client.address.AddressResponseDto;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.AddressClientMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.mapper.RestaurantClientMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.RestaurantClient;
@@ -15,25 +14,23 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.client.restaurant.Rest
 import com.hrajaona.orderandpay.orderservice.adapters.out.kafka.mapper.OrderEventMapper;
 import com.hrajaona.orderandpay.orderservice.application.port.in.OrderUseCase;
 import com.hrajaona.orderandpay.orderservice.application.port.out.OrderEventProducerPort;
-import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
+import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepositoryPort;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class OrderService implements OrderUseCase {
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryPort orderRepositoryPort;
     private final AddressClient addressClient;
     private final AddressClientMapper  addressClientMapper;
     private final RestaurantClient restaurantClient;
@@ -44,7 +41,7 @@ public class OrderService implements OrderUseCase {
 
     @Override
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepositoryPort.findAll();
     }
 
     @Override
@@ -53,7 +50,6 @@ public class OrderService implements OrderUseCase {
         RestaurantResponseDto restaurant = restaurantClient.getRestaurant(orderRequest.getRestaurantId());
 
         Order order = Order.builder()
-                .id(UUID.randomUUID())
                 .addressId(orderRequest.getAddressId())
                 .userId(orderRequest.getUserId())
                 .restaurantId(orderRequest.getRestaurantId())
@@ -69,26 +65,11 @@ public class OrderService implements OrderUseCase {
 
         List<OrderItem> orderItems = orderItemWebMapper.toDomainList(orderRequest.getOrderItems());
 
-        Order savedOrder = orderRepository.save(order, orderItems);
+        Order savedOrder = orderRepositoryPort.update(order, orderItems);
 
         orderEventProducerPort.publishOrderCreated(orderEventMapper.toEvent(savedOrder), correlationId);
 
         return savedOrder;
 
     }
-
-    @Override
-    public void processOrderPayment(Order order, String correlationId) {
-        log.info("Processing order payment with correlationId={}", correlationId);
-
-
-//        orderEventProducerPort.publishOrderPaid(order, correlationId);
-
-    }
-
-    @Override
-    public Order getOrderByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount) {
-        return orderRepository.findByIdAndUserIdAndAmount(id, userId, amount);
-    }
-
 }

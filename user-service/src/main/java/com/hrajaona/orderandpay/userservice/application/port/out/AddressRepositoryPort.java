@@ -5,6 +5,6 @@ import com.hrajaona.orderandpay.userservice.domain.model.Address;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface AddressRepository {
+public interface AddressRepositoryPort {
     Optional<Address> findById(UUID id);
 }

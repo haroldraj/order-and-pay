@@ -2,7 +2,7 @@ package com.hrajaona.orderandpay.paymentservice.adapters.out.persistence;
 
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.entity.RefundJpaEntity;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.repository.RefundJpaRepository;
-import com.hrajaona.orderandpay.paymentservice.application.port.out.RefundRepository;
+import com.hrajaona.orderandpay.paymentservice.application.port.out.RefundRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class RefundPersistenceAdapter implements RefundRepository {
+public class RefundPersistenceAdapter implements RefundRepositoryPort {
     private final RefundJpaRepository  refundJpaRepository;
 
 

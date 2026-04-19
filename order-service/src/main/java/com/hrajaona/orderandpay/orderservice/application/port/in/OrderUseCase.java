@@ -10,6 +10,4 @@ import java.util.UUID;
 public interface OrderUseCase {
     List<Order> getAllOrders();
     Order create(OrderRequest orderRequest, String correlationId);
-    void processOrderPayment(Order order, String correlationId);
-    Order getOrderByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount);
 }

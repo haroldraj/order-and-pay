@@ -1,13 +1,13 @@
 package com.hrajaona.orderandpay.paymentservice.adapters.out.kafka;
 
+import com.hrajaona.library.enums.PaymentEvent;
 import com.hrajaona.library.events.PaymentCompletedEvent;
-import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentEventProducer;
-import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
+import com.hrajaona.library.messaging.KafkaTopics;
+import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentEventProducerPort;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -19,11 +19,8 @@ import java.util.UUID;
 @Slf4j
 @Getter
 @Setter
-public class PaymentEventProducerAdapter implements PaymentEventProducer {
-    private final NewTopic paymentEventsTopic;
+public class PaymentEventProducerAdapter implements PaymentEventProducerPort {
     private final KafkaTemplate<String, PaymentCompletedEvent> kafkaTemplate;
-    private final String PAYMENT_COMPLETED_EVENT = "PAYMENT_COMPLETED";
-    private final String PAYMENT_COMPLETED_TOPIC = "payment.completed";
 
     @Override
     public void publishPaymentCompleted(PaymentCompletedEvent payment , String correlationId) {
@@ -31,12 +28,12 @@ public class PaymentEventProducerAdapter implements PaymentEventProducer {
 
         payment.setEventId(eventId);
 
-        log.info("Sending {} event with correlationId {}", PAYMENT_COMPLETED_EVENT, correlationId);
+        log.info("Sending {} event with correlationId {}", PaymentEvent.PAYMENT_COMPLETED, correlationId);
 
-        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(PAYMENT_COMPLETED_TOPIC, payment.getPaymentId().toString(), payment);
+        ProducerRecord<String, PaymentCompletedEvent> record = new ProducerRecord<>(KafkaTopics.PAYMENT_COMPLETED, payment.getPaymentId().toString(), payment);
 
         record.headers().add("correlationId", correlationId.getBytes());
-        record.headers().add("eventType", PAYMENT_COMPLETED_EVENT.getBytes());
+        record.headers().add("eventType", PaymentEvent.PAYMENT_COMPLETED.toString().getBytes());
 
 
         kafkaTemplate.send(record);

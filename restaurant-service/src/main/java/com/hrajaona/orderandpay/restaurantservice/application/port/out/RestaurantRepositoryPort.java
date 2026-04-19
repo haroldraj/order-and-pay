@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public interface RestaurantRepository {
+public interface RestaurantRepositoryPort {
     List<Restaurant> findAllRestaurants();
     Optional<Restaurant> findById(UUID id);
 }

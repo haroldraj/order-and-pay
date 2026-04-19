@@ -5,8 +5,8 @@ import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {MenuItemPersistenceMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface RestaurantPersistenceMapper {
-    RestaurantJpaEntity toJpa(Restaurant restaurant);
+    RestaurantJpaEntity toEntity(Restaurant restaurant);
     Restaurant toDomain(RestaurantJpaEntity restaurantJpaEntity);
 }

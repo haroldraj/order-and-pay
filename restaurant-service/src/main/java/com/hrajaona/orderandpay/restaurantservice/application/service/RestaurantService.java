@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.restaurantservice.application.port.service;
+package com.hrajaona.orderandpay.restaurantservice.application.service;
 
 import com.hrajaona.orderandpay.restaurantservice.adapters.in.web.dto.RestaurantResponse;
 import com.hrajaona.orderandpay.restaurantservice.adapters.in.web.mapper.RestaurantWebMapper;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

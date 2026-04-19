@@ -3,7 +3,7 @@ package com.hrajaona.orderandpay.paymentservice.adapters.out.persistence;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.entity.PaymentJpaEntity;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.mapper.PaymentMapper;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.repository.PaymentJpaRepository;
-import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentRepository;
+import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentRepositoryPort;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Component
 @AllArgsConstructor
-public class PaymentPersistenceAdapter implements PaymentRepository {
+public class PaymentPersistenceAdapter implements PaymentRepositoryPort {
     private final PaymentJpaRepository paymentJpaRepository;
     private final PaymentMapper paymentMapper;
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RefundRepository {
+public interface RefundRepositoryPort {
     List<RefundJpaEntity> findAll();
     Optional<RefundJpaEntity> findById(UUID id);
 }

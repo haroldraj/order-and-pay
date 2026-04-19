@@ -18,18 +18,18 @@ public class OrderStatusHistoryJpaEntity {
     private UUID id;
 
     @Column
+    private UUID orderId;
+
+    @Column
     private String previousStatus;
 
     @Column
     private String status;
 
     @Column
-    private String changedBy;
-
-    @Column
     private LocalDateTime changedAt;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private OrderJpaEntity order;
+//
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "order_id", referencedColumnName = "id")
+//    private OrderJpaEntity order;
 }

@@ -25,7 +25,9 @@ public interface OrderJpaRepository extends JpaRepository<OrderJpaEntity, UUID> 
         LEFT JOIN FETCH o.orderItems
         WHERE o.id =:id AND o.userId = :userId
     """)
-    Optional<OrderJpaEntity> findByIdAndUserId(UUID id, UUID userId);
+    Optional<OrderJpaEntity> findByIdAndUserId(
+            @Param("id") UUID id,
+            @Param("userId") UUID userId);
 
 //    Optional<OrderJpaEntity> updateOrInsert(OrderJpaEntity orderJpaEntity);
 

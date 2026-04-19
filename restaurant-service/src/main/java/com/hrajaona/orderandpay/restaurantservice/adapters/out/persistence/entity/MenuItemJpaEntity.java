@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -30,9 +32,11 @@ public class MenuItemJpaEntity {
     private Double price;
 
     @Column
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

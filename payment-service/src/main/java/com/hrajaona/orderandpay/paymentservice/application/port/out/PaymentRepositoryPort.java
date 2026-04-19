@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface PaymentRepository {
+public interface PaymentRepositoryPort {
     Payment save(Payment payment);
     List<Payment> findAll();
     Optional<Payment> findById(UUID id);

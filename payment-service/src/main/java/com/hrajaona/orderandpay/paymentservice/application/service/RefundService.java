@@ -3,7 +3,7 @@ package com.hrajaona.orderandpay.paymentservice.application.service;
 import com.hrajaona.orderandpay.paymentservice.adapters.in.web.dto.RefundRequest;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.mapper.RefundMapper;
 import com.hrajaona.orderandpay.paymentservice.application.port.in.RefundUseCase;
-import com.hrajaona.orderandpay.paymentservice.application.port.out.RefundRepository;
+import com.hrajaona.orderandpay.paymentservice.application.port.out.RefundRepositoryPort;
 import com.hrajaona.orderandpay.paymentservice.domain.exception.RefundNotFoundException;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Refund;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class RefundService implements RefundUseCase {
-    private final RefundRepository refundRepository;
+    private final RefundRepositoryPort refundRepositoryPort;
     private final RefundMapper refundMapper;
 
     @Override
@@ -30,7 +30,7 @@ public class RefundService implements RefundUseCase {
 
     @Override
     public List<Refund> getAllRefunds() {
-        return refundRepository.findAll()
+        return refundRepositoryPort.findAll()
                 .stream()
                 .map(refundMapper::toDomain)
                 .toList();
@@ -38,7 +38,7 @@ public class RefundService implements RefundUseCase {
 
     @Override
     public Refund getRefundById(UUID id) {
-        return refundRepository.findById(id)
+        return refundRepositoryPort.findById(id)
                 .map(refundMapper::toDomain)
                 .orElseThrow(()-> new RefundNotFoundException(id));
     }

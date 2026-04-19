@@ -2,7 +2,7 @@ package com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence;
 
 import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.mapper.RestaurantPersistenceMapper;
 import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.repository.RestaurantJpaRepository;
-import com.hrajaona.orderandpay.restaurantservice.application.port.out.RestaurantRepository;
+import com.hrajaona.orderandpay.restaurantservice.application.port.out.RestaurantRepositoryPort;
 import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class RestaurantPersistenceAdapter implements RestaurantRepository {
+public class RestaurantPersistenceAdapter implements RestaurantRepositoryPort {
     private final RestaurantJpaRepository restaurantJpaRepository;
     private final RestaurantPersistenceMapper restaurantPersistenceMapper;
 

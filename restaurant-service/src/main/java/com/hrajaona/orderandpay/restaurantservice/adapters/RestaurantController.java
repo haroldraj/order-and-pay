@@ -1,7 +1,7 @@
 package com.hrajaona.orderandpay.restaurantservice.adapters;
 
 import com.hrajaona.orderandpay.restaurantservice.adapters.in.web.dto.RestaurantResponse;
-import com.hrajaona.orderandpay.restaurantservice.application.port.service.RestaurantService;
+import com.hrajaona.orderandpay.restaurantservice.application.service.RestaurantService;
 import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public  ResponseEntity<Restaurant> getRestaurantById(@PathVariable ("id")UUID id) {
+    public  ResponseEntity<Restaurant> getRestaurantById(@PathVariable ("id") UUID id) {
         return ResponseEntity.ok(restaurantService.getRestaurantById(id));
     }
 }

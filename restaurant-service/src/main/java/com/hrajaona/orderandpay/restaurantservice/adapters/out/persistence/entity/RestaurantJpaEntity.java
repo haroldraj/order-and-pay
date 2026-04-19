@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,11 +36,16 @@ public class RestaurantJpaEntity {
     private String status;
 
     @Column
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MenuItemJpaEntity> menuItems;
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    private List<RestaurantOrderJpaEntity> restaurantOrder;
 }

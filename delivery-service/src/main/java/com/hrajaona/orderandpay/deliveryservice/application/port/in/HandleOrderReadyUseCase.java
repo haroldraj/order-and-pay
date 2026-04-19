@@ -1,8 +1,7 @@
 package com.hrajaona.orderandpay.deliveryservice.application.port.in;
 
-import com.hrajaona.library.events.OrderPaidEvent;
-import com.hrajaona.library.events.OrderReadyForDelivery;
+import com.hrajaona.library.events.OrderReadyForDeliveryEvent;
 
 public interface HandleOrderReadyUseCase {
-    void handle(OrderReadyForDelivery order, String correlationId);
+    void handle(OrderReadyForDeliveryEvent order, String correlationId);
 }

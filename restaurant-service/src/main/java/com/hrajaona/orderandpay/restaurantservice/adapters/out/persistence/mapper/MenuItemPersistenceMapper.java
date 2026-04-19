@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MenuItemPersistenceMapper {
-    MenuItemJpaEntity toJpa(MenuItem menuItem);
+    MenuItemJpaEntity toEntity(MenuItem menuItem);
     MenuItem toDomain(MenuItemJpaEntity menuItemJpaEntity);
 }

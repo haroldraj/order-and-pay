@@ -2,12 +2,11 @@ package com.hrajaona.orderandpay.paymentservice.application.service;
 
 import com.hrajaona.library.enums.PaymentStatus;
 import com.hrajaona.library.events.OrderCreatedEvent;
-import com.hrajaona.library.events.PaymentCompletedEvent;
 import com.hrajaona.orderandpay.paymentservice.adapters.in.web.dto.PaymentRequest;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.kafka.PaymentEventProducerAdapter;
 import com.hrajaona.orderandpay.paymentservice.adapters.out.persistence.mapper.PaymentMapper;
 import com.hrajaona.orderandpay.paymentservice.application.port.in.*;
-import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentRepository;
+import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentRepositoryPort;
 import com.hrajaona.orderandpay.paymentservice.domain.exception.PaymentNotFoundException;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +21,18 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class PaymentService implements PaymentUseCase {
-    private final PaymentRepository paymentRepository;
+    private final PaymentRepositoryPort paymentRepositoryPort;
     private final PaymentMapper paymentMapper;
     private final PaymentEventProducerAdapter paymentEventProducerAdapter;
 
     @Override
     public List<Payment> getAllPayments() {
-        return paymentRepository.findAll();
+        return paymentRepositoryPort.findAll();
     }
 
     @Override
     public Payment getPaymentById(UUID id) {
-        return paymentRepository.findById(id)
+        return paymentRepositoryPort.findById(id)
                 .orElseThrow(() -> new PaymentNotFoundException(id));
     }
 
@@ -53,7 +52,7 @@ public class PaymentService implements PaymentUseCase {
         payment.setCreatedAt(now);
         payment.setUpdatedAt(now);
 
-        return paymentRepository.save(payment);
+        return paymentRepositoryPort.save(payment);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.entity.Ord
 import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.mapper.OrderItemPersistenceMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.mapper.OrderPersistenceMapper;
 import com.hrajaona.orderandpay.orderservice.adapters.out.persistence.repository.OrderJpaRepository;
-import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepository;
+import com.hrajaona.orderandpay.orderservice.application.port.out.OrderRepositoryPort;
 import com.hrajaona.orderandpay.orderservice.domain.exception.OrderNotFoundException;
 import com.hrajaona.orderandpay.orderservice.domain.model.Order;
 import com.hrajaona.orderandpay.orderservice.domain.model.OrderItem;
@@ -13,12 +13,11 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class OrderPersistenceAdapter implements OrderRepository {
+public class OrderPersistenceAdapter implements OrderRepositoryPort {
     private final OrderJpaRepository orderJpaRepository;
     private final OrderPersistenceMapper orderPersistenceMapper;
     private final OrderItemPersistenceMapper orderItemPersistenceMapper;
@@ -39,8 +38,9 @@ public class OrderPersistenceAdapter implements OrderRepository {
     }
 
     @Override
-    public Order save(Order order, List<OrderItem> orderItems) {
+    public Order update(Order order, List<OrderItem> orderItems) {
         try{
+            order.setId(UUID.randomUUID());
             OrderJpaEntity newOrder = orderPersistenceMapper.toEntity(order);
             newOrder.addOrderItems(orderItemPersistenceMapper.toEntities(orderItems));
 
@@ -48,7 +48,7 @@ public class OrderPersistenceAdapter implements OrderRepository {
             return  orderPersistenceMapper.toDomain(savedOrder);
         }
         catch (Exception ex){
-            throw new RuntimeException("Cannot save order | "+ex);
+            throw new RuntimeException("Cannot update order | "+ex);
         }
     }
 
@@ -60,7 +60,7 @@ public class OrderPersistenceAdapter implements OrderRepository {
     }
 
     @Override
-    public void save(Order order) {
+    public void update(Order order) {
         orderJpaRepository.save(orderPersistenceMapper.toEntity(order));
     }
 }

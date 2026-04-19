@@ -4,7 +4,7 @@ import com.hrajaona.library.enums.RoleType;
 import com.hrajaona.orderandpay.userservice.adapters.in.web.dto.UserRequest;
 import com.hrajaona.orderandpay.userservice.adapters.in.web.mapper.UserWebMapper;
 import com.hrajaona.orderandpay.userservice.application.port.in.UserUseCase;
-import com.hrajaona.orderandpay.userservice.application.port.out.UserRepository;
+import com.hrajaona.orderandpay.userservice.application.port.out.UserRepositoryPort;
 import com.hrajaona.orderandpay.userservice.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService implements UserUseCase {
 
-    private final UserRepository userRepository;
+    private final UserRepositoryPort userRepositoryPort;
     private final UserWebMapper userWebMapper;
 
     @Override
     public List<User> getAllUsers(){
-        return userRepository.findAll();
+        return userRepositoryPort.findAll();
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepositoryPort.findByEmail(email);
     }
 
     @Override
@@ -42,11 +42,11 @@ public class UserService implements UserUseCase {
                 .phoneNumber(userRequest.getPhoneNumber())
                 .emailAddress(userRequest.getEmailAddress())
                 .build();
-        return userRepository.save(newUser);
+        return userRepositoryPort.save(newUser);
     }
 
     @Override
     public User getUserById(UUID id) {
-        return userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+        return userRepositoryPort.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
     }
 }
