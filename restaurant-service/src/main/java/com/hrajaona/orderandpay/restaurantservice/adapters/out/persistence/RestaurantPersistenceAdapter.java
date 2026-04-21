@@ -26,8 +26,9 @@ public class RestaurantPersistenceAdapter implements RestaurantRepositoryPort {
     }
 
     @Override
-    public Optional<Restaurant> findById(UUID id) {
+    public Restaurant findById(UUID id) {
         return restaurantJpaRepository.findById(id)
-                .map(restaurantPersistenceMapper::toDomain);
+                .map(restaurantPersistenceMapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
     }
 }

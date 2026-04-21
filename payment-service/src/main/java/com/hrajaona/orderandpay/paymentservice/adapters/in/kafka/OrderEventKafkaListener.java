@@ -3,7 +3,7 @@ package com.hrajaona.orderandpay.paymentservice.adapters.in.kafka;
 import com.hrajaona.library.events.OrderCreatedEvent;
 import com.hrajaona.library.messaging.KafkaTopics;
 import com.hrajaona.library.messaging.ServiceGroupId;
-import com.hrajaona.orderandpay.paymentservice.application.port.in.OrderCreatedUseCase;
+import com.hrajaona.orderandpay.paymentservice.application.port.in.HandleOrderCreatedUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OrderEventKafkaListener {
-    private final OrderCreatedUseCase orderCreatedUseCase;
+    private final HandleOrderCreatedUseCase handleOrderCreatedUseCase;
 
     @KafkaListener(topics = KafkaTopics.ORDER_CREATED, groupId = ServiceGroupId.PAYMENT_GROUP)
     public void listenOrderCreated(ConsumerRecord<String, OrderCreatedEvent> record) {
@@ -24,7 +24,7 @@ public class OrderEventKafkaListener {
 
         log.info("Received {} event with correlationId {}", eventType, correlationId);
 
-        orderCreatedUseCase.handle(record.value(), correlationId);
+        handleOrderCreatedUseCase.handle(record.value(), correlationId);
     }
 
     private String getCorrelationId(ConsumerRecord<String, OrderCreatedEvent> record) {

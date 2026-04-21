@@ -3,7 +3,7 @@ package com.hrajaona.orderandpay.restaurantservice.adapters.in.kafka;
 import com.hrajaona.library.events.OrderPaidEvent;
 import com.hrajaona.library.messaging.KafkaTopics;
 import com.hrajaona.library.messaging.ServiceGroupId;
-import com.hrajaona.orderandpay.restaurantservice.application.port.in.OrderPaidUseCase;
+import com.hrajaona.orderandpay.restaurantservice.application.port.in.HandleOrderPaidUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OrderEventKafkaListener {
-    private final OrderPaidUseCase orderPaidUseCase;
+    private final HandleOrderPaidUseCase handleOrderPaidUseCase;
 
     @KafkaListener(topics = KafkaTopics.ORDER_PAID, groupId = ServiceGroupId.RESTAURANT_GROUP)
     public void listenOrderPaid(ConsumerRecord<String, OrderPaidEvent> record) {
@@ -24,7 +24,7 @@ public class OrderEventKafkaListener {
 
         log.info("Received {} event with correlationId {}", eventType, correlationId);
 
-        orderPaidUseCase.handle(record.value(), correlationId);
+        handleOrderPaidUseCase.handle(record.value(), correlationId);
     }
 
     private String getCorrelationId(ConsumerRecord<String, OrderPaidEvent> record) {

@@ -2,7 +2,7 @@ package com.hrajaona.orderandpay.paymentservice.application.handler;
 
 import com.hrajaona.library.events.OrderCreatedEvent;
 import com.hrajaona.orderandpay.paymentservice.application.mapper.PaymentApplicationMapper;
-import com.hrajaona.orderandpay.paymentservice.application.port.in.OrderCreatedUseCase;
+import com.hrajaona.orderandpay.paymentservice.application.port.in.HandleOrderCreatedUseCase;
 import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentEventProducerPort;
 import com.hrajaona.orderandpay.paymentservice.application.port.out.PaymentRepositoryPort;
 import com.hrajaona.orderandpay.paymentservice.domain.model.Payment;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OrderCreatedHandler implements OrderCreatedUseCase {
+public class OrderCreatedHandler implements HandleOrderCreatedUseCase {
     private final PaymentRepositoryPort paymentRepositoryPort;
     private final PaymentEventProducerPort paymentEventProducerPort;
     private final PaymentApplicationMapper mapper;

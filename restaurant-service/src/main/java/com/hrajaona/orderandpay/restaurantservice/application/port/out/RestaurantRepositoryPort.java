@@ -10,5 +10,5 @@ import java.util.UUID;
 @Component
 public interface RestaurantRepositoryPort {
     List<Restaurant> findAllRestaurants();
-    Optional<Restaurant> findById(UUID id);
+    Restaurant findById(UUID id);
 }

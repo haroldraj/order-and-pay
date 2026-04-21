@@ -29,7 +29,6 @@ public class RestaurantService implements RestaurantUserCase {
 
     @Override
     public Restaurant getRestaurantById(UUID id) {
-        return restaurantPersistenceAdapter.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found with id" + id));
+        return restaurantPersistenceAdapter.findById(id);
     }
 }
