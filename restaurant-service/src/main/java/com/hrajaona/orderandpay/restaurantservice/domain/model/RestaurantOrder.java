@@ -25,5 +25,25 @@ public class RestaurantOrder {
     private CustomerSnapshot customerSnapshot;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void markAsPaid() {
+        this.status = OrderStatus.PAID;
+    }
+
+    public void markAsPreparing() {
+        this.status = OrderStatus.PREPARING;
+    }
+
+    public void markAsDelivered() {
+        this.status = OrderStatus.DELIVERED;
+    }
+
+    public void markAsInDelivery() {
+        this.status = OrderStatus.IN_DELIVERY;
+    }
+
+    public void markAsReadyFOrDelivery() {
+        this.status = OrderStatus.READY_FOR_DELIVERY;
+    }
 }
 

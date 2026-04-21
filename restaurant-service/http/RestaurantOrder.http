@@ -1,9 +1,9 @@
 ### GET request to example server
-POST http://localhost:5454/api/v1/restaurants/orders/
+POST http://localhost:5454/api/v1/restaurants/orders/preparing
 Content-type: application/json
 
 {
-  "orderId":"",
+  "orderId":"46d8fb68-248e-4168-9cd5-c1e2995a56ea",
   "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11"
 }
 

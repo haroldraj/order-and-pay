@@ -3,7 +3,6 @@ package com.hrajaona.orderandpay.restaurantservice.application.handler;
 import com.hrajaona.library.events.OrderPaidEvent;
 import com.hrajaona.library.events.OrderReadyForDeliveryEvent;
 import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.RestaurantOrderPersistenceAdapter;
-import com.hrajaona.orderandpay.restaurantservice.application.mapper.OrderApplicationMapper;
 import com.hrajaona.orderandpay.restaurantservice.application.mapper.RestaurantOrderApplicationMapper;
 import com.hrajaona.orderandpay.restaurantservice.application.port.in.HandleOrderPaidUseCase;
 import com.hrajaona.orderandpay.restaurantservice.application.port.out.OrderEventProducerPort;

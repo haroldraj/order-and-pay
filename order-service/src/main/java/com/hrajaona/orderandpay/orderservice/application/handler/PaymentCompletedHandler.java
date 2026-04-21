@@ -46,7 +46,7 @@ public class PaymentCompletedHandler implements PaymentCompletedUseCase {
 
         orderPaidEvent.setCustomer(customer);
 
-        orderEventProducerPort.publishOrderPaid(orderApplicationMapper.toOrderPaidEvent(order), correlationId);
+        orderEventProducerPort.publishOrderPaid(orderPaidEvent, correlationId);
 
     }
 

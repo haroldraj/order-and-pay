@@ -30,7 +30,7 @@ public class RestaurantOrderJpaEntity {
     private UUID orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private RestaurantJpaEntity restaurant;
 
     @Column

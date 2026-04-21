@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.restaurantservice.adapters.in.web.request;
+package com.hrajaona.orderandpay.restaurantservice.application.port.in.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PrepareOrderRequest {
+public class OrderCommand {
     private UUID orderId;
     private UUID restaurantId;
 }
