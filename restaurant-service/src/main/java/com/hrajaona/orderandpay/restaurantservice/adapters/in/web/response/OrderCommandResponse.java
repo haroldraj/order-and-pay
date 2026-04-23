@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class PrepareOrderResponse {
+public class OrderCommandResponse {
     private String message;
 }

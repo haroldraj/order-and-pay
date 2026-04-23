@@ -40,6 +40,9 @@ public class RestaurantOrderJpaEntity {
     private BigDecimal amount;
 
     @Column
+    private String correlationId;
+
+    @Column
     @JdbcTypeCode(SqlTypes.JSON)
     private List<OrderItemPayload> itemsSnapshot;
 
@@ -48,8 +51,7 @@ public class RestaurantOrderJpaEntity {
     private CustomerSnapshot customerSnapshot;
 
     @Column
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime valueDate;
 
     @Column
     @UpdateTimestamp

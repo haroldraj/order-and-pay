@@ -1,5 +1,6 @@
 package com.hrajaona.orderandpay.restaurantservice.application.handler;
 
+import com.hrajaona.library.enums.OrderStatus;
 import com.hrajaona.library.events.OrderPaidEvent;
 import com.hrajaona.library.events.OrderReadyForDeliveryEvent;
 import com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.RestaurantOrderPersistenceAdapter;
@@ -26,6 +27,10 @@ public class OrderPaidHandler implements HandleOrderPaidUseCase {
     @Transactional
     public void handle(OrderPaidEvent orderPaidEvent, String correlationId) {
         RestaurantOrder order = restaurantOrderApplicationMapper.toDomain(orderPaidEvent);
+
+        order.setCorrelationId(correlationId);
+
+        order.markAsPaid();
 
         restaurantOrderPersistenceAdapter.save(order);
 

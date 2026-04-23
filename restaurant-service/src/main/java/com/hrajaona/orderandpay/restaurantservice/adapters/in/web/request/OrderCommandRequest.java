@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PrepareOrderRequest {
+public class OrderCommandRequest {
     private UUID orderId;
     private UUID restaurantId;
 }

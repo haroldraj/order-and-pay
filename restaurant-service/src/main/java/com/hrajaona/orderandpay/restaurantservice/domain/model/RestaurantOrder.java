@@ -21,9 +21,10 @@ public class RestaurantOrder {
     private UUID restaurantId;
     private OrderStatus status;
     private BigDecimal amount;
+    private String correlationId;
     private List<OrderItemPayload> itemsSnapshot;
     private CustomerSnapshot customerSnapshot;
-    private LocalDateTime createdAt;
+    private LocalDateTime valueDate;
     private LocalDateTime updatedAt;
 
     public void markAsPaid() {

@@ -1,6 +1,5 @@
 package com.hrajaona.orderandpay.restaurantservice.application.port.in.command;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +7,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class PrepareOrderCommand {
-    private UUID orderId;
-    private UUID restaurantId;
+public class PrepareOrderCommand extends OrderCommand {
+    public PrepareOrderCommand(UUID orderId, UUID restaurantId) {
+        super(orderId, restaurantId);
+    }
 }

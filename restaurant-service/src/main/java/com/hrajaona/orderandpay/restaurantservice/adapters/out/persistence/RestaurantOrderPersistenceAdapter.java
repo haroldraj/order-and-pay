@@ -29,7 +29,6 @@ public class RestaurantOrderPersistenceAdapter implements RestaurantOrderReposit
             RestaurantJpaEntity restaurant = restaurantJpaRepository.getReferenceById(restaurantOrder.getRestaurantId());
             RestaurantOrderJpaEntity newRestaurantOrder = mapper.toEntity(restaurantOrder);
             newRestaurantOrder.setRestaurant(restaurant);
-            newRestaurantOrder.setCreatedAt(LocalDateTime.now());
 
             repository.save(newRestaurantOrder);
         } catch (Exception e) {

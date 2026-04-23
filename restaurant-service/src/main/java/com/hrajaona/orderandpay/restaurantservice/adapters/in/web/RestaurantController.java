@@ -1,4 +1,4 @@
-package com.hrajaona.orderandpay.restaurantservice.adapters;
+package com.hrajaona.orderandpay.restaurantservice.adapters.in.web;
 
 import com.hrajaona.orderandpay.restaurantservice.adapters.in.web.dto.RestaurantResponse;
 import com.hrajaona.orderandpay.restaurantservice.application.service.RestaurantService;
