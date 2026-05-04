@@ -1,9 +1,8 @@
 CREATE TABLE IF NOT EXISTS deliveries(
-    id BIGSERIAL PRIMARY KEY,
-    delivery_idf UUID UNIQUE,
-    order_idf UUID NOT NULL,
-    user_idf UUID NOT NULL,
-    restaurant_idf UUID NOT NULL,
+    id UUID PRIMARY KEY,
+    order_id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    restaurant_id UUID NOT NULL,
     restaurant_snapshot JSONB,
     address_snapshot JSONB,
     status VARCHAR(30),
@@ -14,28 +13,29 @@ CREATE TABLE IF NOT EXISTS deliveries(
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS idx_deliveries_delivery_idf ON deliveries(delivery_idf);
-CREATE INDEX IF NOT EXISTS idx_deliveries_order_idf ON deliveries(order_idf);
-CREATE INDEX IF NOT EXISTS idx_deliveries_user_idf ON deliveries(user_idf);
-CREATE INDEX IF NOT EXISTS idx_deliveries_restaurant_idf ON deliveries(restaurant_idf);
+CREATE INDEX IF NOT EXISTS idx_deliveries_order_id ON deliveries(order_id);
+CREATE INDEX IF NOT EXISTS idx_deliveries_user_id ON deliveries(user_id);
+CREATE INDEX IF NOT EXISTS idx_deliveries_restaurant_id ON deliveries(restaurant_id);
 
 CREATE TABLE IF NOT EXISTS drivers(
-    id BIGSERIAL PRIMARY KEY,
-    driver_idf UUID UNIQUE NOT NULL,
+    id UUID PRIMARY KEY,
     driver_name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
     email_address VARCHAR(30) NOT NULL,
-    vehicule_type VARCHAR(15) NOT NULL,
+    vehicle_type VARCHAR(15) NOT NULL,
     available BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS idx_drivers_driver_idf ON drivers(driver_idf);
 
 CREATE TABLE IF NOT EXISTS delivery_assignments(
-    delivery_id BIGINT REFERENCES deliveries(id),
-    driver_id BIGINT REFERENCES drivers(id),
+    delivery_id UUID REFERENCES deliveries(id),
+    driver_id UUID REFERENCES drivers(id),
+    status VARCHAR(30) NOT NULL DEFAULT 'ASSIGNED',
     assigned_at TIMESTAMP DEFAULT NOW(),
+    accepted_at TIMESTAMP,
+    completed_at TIMESTAMP,
+    cancelled_at TIMESTAMP,
     PRIMARY KEY (delivery_id, driver_id)
 );
