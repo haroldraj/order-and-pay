@@ -24,6 +24,8 @@ public class OrderEventKafkaListener {
 
         log.info("Received {} event with correlationId {}", eventType, correlationId);
 
+        handleOrderReadyUseCase.handle(record.value(), correlationId);
+
 
     }
 
