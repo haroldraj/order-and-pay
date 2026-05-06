@@ -22,4 +22,13 @@ public class DriverPersistenceAdapter implements DriverRepositoryPort {
                 .map(driverPersistenceMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public Driver findAvailableDriver() {
+        return driverJpaRepository.findAllAvailable()
+                .stream()
+                .findFirst()
+                .map(driverPersistenceMapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("Not available Driver"));
+    }
 }

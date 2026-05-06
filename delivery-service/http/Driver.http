@@ -2,3 +2,5 @@
 GET http://localhost:5453/api/v1/drivers
 
 ###
+
+GET http://localhost:5453/api/v1/drivers/available

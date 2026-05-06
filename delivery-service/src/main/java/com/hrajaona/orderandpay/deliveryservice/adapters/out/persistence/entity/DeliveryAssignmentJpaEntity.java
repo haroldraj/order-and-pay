@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "delivery_assignment")
+@Table(name = "delivery_assignments")
 @Getter
 @Setter
 @EqualsAndHashCode

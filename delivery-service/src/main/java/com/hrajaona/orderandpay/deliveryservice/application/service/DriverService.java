@@ -17,4 +17,9 @@ public class DriverService implements DriverUseCase {
     public List<Driver> getAll() {
         return driverRepositoryPort.findAll();
     }
+
+    @Override
+    public Driver getAvailableDriver() {
+        return driverRepositoryPort.findAvailableDriver();
+    }
 }

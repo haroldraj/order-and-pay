@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DriverRepositoryPort {
     List<Driver> findAll();
+    Driver findAvailableDriver();
 }

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DriverUseCase {
     List<Driver> getAll();
+    Driver getAvailableDriver();
 }
