@@ -18,22 +18,22 @@ public class OrderEventKafkaListener {
     private final HandleOrderPaidUseCase handleOrderPaidUseCase;
 
     @KafkaListener(topics = KafkaTopics.ORDER_PAID, groupId = ServiceGroupId.RESTAURANT_GROUP)
-    public void listenOrderPaid(ConsumerRecord<String, OrderPaidEvent> record) {
-        String correlationId = getCorrelationId(record);
-        String eventType = getEventType(record);
+    public void listenOrderPaid(ConsumerRecord<String, OrderPaidEvent> orderPaidRecord) {
+        String correlationId = getCorrelationId(orderPaidRecord);
+        String eventType = getEventType(orderPaidRecord);
 
         log.info("Received {} event with correlationId {}", eventType, correlationId);
 
-        handleOrderPaidUseCase.handle(record.value(), correlationId);
+        handleOrderPaidUseCase.handle(orderPaidRecord.value(), correlationId);
     }
 
-    private String getCorrelationId(ConsumerRecord<String, OrderPaidEvent> record) {
-        Header header = record.headers().lastHeader("correlationId");
+    private String getCorrelationId(ConsumerRecord<String, OrderPaidEvent> orderPaidRecord) {
+        Header header = orderPaidRecord.headers().lastHeader("correlationId");
         return header != null ? new String(header.value()) : null;
     }
 
-    private String getEventType(ConsumerRecord<String, OrderPaidEvent> record) {
-        Header header = record.headers().lastHeader("eventType");
+    private String getEventType(ConsumerRecord<String, OrderPaidEvent> orderPaidRecord) {
+        Header header = orderPaidRecord.headers().lastHeader("eventType");
         return header != null ? new String(header.value()) : null;
     }
 }

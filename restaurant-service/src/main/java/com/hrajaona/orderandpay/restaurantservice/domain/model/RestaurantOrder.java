@@ -1,6 +1,7 @@
 package com.hrajaona.orderandpay.restaurantservice.domain.model;
 
 import com.hrajaona.library.enums.OrderStatus;
+import com.hrajaona.library.model.AddressSnapshot;
 import com.hrajaona.library.model.CustomerSnapshot;
 import com.hrajaona.library.model.OrderItemPayload;
 import lombok.*;
@@ -24,6 +25,7 @@ public class RestaurantOrder {
     private String correlationId;
     private List<OrderItemPayload> itemsSnapshot;
     private CustomerSnapshot customerSnapshot;
+    private AddressSnapshot deliveryAddress;
     private LocalDateTime valueDate;
     private LocalDateTime updatedAt;
 
@@ -43,7 +45,7 @@ public class RestaurantOrder {
         this.status = OrderStatus.IN_DELIVERY;
     }
 
-    public void markAsReadyFOrDelivery() {
+    public void markAsReadyForDelivery() {
         this.status = OrderStatus.READY_FOR_DELIVERY;
     }
 }

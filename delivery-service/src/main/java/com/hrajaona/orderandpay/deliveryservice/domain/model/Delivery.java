@@ -2,6 +2,7 @@ package com.hrajaona.orderandpay.deliveryservice.domain.model;
 
 import com.hrajaona.library.enums.DeliveryStatus;
 import com.hrajaona.library.model.AddressSnapshot;
+import com.hrajaona.library.model.CustomerSnapshot;
 import com.hrajaona.library.model.RestaurantSnapshot;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Delivery {
     private UUID restaurantId;
     private RestaurantSnapshot restaurantSnapshot;
     private AddressSnapshot addressSnapshot;
+    private CustomerSnapshot customerSnapshot;
     private DeliveryStatus status;
     private LocalDateTime estimatedDeliveryTime;
     private LocalDateTime deliveredAt;

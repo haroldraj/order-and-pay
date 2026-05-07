@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS restaurant_orders(
     amount DECIMAL(12, 2) NOT NULL,
     customer_snapshot JSONB NOT NULL,
     items_snapshot JSONB NOT NULL,
+    delivery_address JSONB NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );

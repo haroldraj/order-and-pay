@@ -27,14 +27,14 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         orderEvent.setEventId(eventId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>(
+        ProducerRecord<String, Object> orderReadyForDeliveryRecord = new ProducerRecord<>(
                 KafkaTopics.ORDER_READY_FOR_DELIVERY, orderEvent.getOrderId().toString(), orderEvent);
 
-        addHeaders(record, correlationId, OrderEvent.ORDER_READY_FOR_DELIVERY.toString());
+        addHeaders(orderReadyForDeliveryRecord, correlationId, OrderEvent.ORDER_READY_FOR_DELIVERY.toString());
 
         logInfoEventSending(OrderEvent.ORDER_READY_FOR_DELIVERY, correlationId);
 
-        kafkaTemplate.send(record);
+        kafkaTemplate.send(orderReadyForDeliveryRecord);
     }
 
     @Override
@@ -43,19 +43,19 @@ public class OrderEventProducerAdapter implements OrderEventProducerPort {
 
         orderPreparingEvent.setEventId(eventId);
 
-        ProducerRecord<String, Object> record = new ProducerRecord<>(
+        ProducerRecord<String, Object> orderPreparingRecord = new ProducerRecord<>(
                 KafkaTopics.ORDER_PREPARING, orderPreparingEvent.getOrderId().toString(), orderPreparingEvent);
 
-        addHeaders(record, correlationId, OrderEvent.ORDER_PREPARING.toString());
+        addHeaders(orderPreparingRecord, correlationId, OrderEvent.ORDER_PREPARING.toString());
 
         logInfoEventSending(OrderEvent.ORDER_PREPARING, correlationId);
 
-        kafkaTemplate.send(record);
+        kafkaTemplate.send(orderPreparingRecord);
     }
 
-    private void addHeaders(ProducerRecord<String, Object> record, String correlationId, String eventType) {
-        record.headers().add("correlationId", correlationId.getBytes());
-        record.headers().add("eventType", eventType.getBytes());
+    private void addHeaders(ProducerRecord<String, Object> eventRecord, String correlationId, String eventType) {
+        eventRecord.headers().add("correlationId", correlationId.getBytes());
+        eventRecord.headers().add("eventType", eventType.getBytes());
     }
 
     private void logInfoEventSending(OrderEvent eventType, String correlationId) {

@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.hrajaona</groupId>
         <artifactId>order-and-pay</artifactId>
-        <version>1.1.22</version>
+        <version>1.1.23</version>
     </parent>
 
     <artifactId>delivery-service</artifactId>

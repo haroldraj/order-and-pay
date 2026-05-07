@@ -1,6 +1,7 @@
 package com.hrajaona.orderandpay.deliveryservice.adapters.out.persistence.entity;
 
 import com.hrajaona.library.model.AddressSnapshot;
+import com.hrajaona.library.model.CustomerSnapshot;
 import com.hrajaona.library.model.RestaurantSnapshot;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -29,9 +30,6 @@ public class DeliveryJpaEntity {
     private UUID orderId;
 
     @Column
-    private UUID userId;
-
-    @Column
     private UUID restaurantId;
 
     @Column(columnDefinition = "jsonb")
@@ -41,6 +39,10 @@ public class DeliveryJpaEntity {
     @Column(columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
     private RestaurantSnapshot restaurantSnapshot;
+
+    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private CustomerSnapshot customerSnapshot;
 
     @Column
     private String status;

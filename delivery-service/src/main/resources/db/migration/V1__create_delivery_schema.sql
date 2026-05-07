@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS deliveries(
     id UUID PRIMARY KEY,
     order_id UUID NOT NULL,
-    user_id UUID NOT NULL,
     restaurant_id UUID NOT NULL,
     restaurant_snapshot JSONB,
     address_snapshot JSONB,
+    customer_snapshot JSONB,
     status VARCHAR(30),
     estimated_delivery_time TIMESTAMP,
     delivered_at TIMESTAMP,

@@ -20,4 +20,12 @@ public class Driver {
     private boolean available;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void markAsUnavailable() {
+        this.available = false;
+    }
+
+    public void markAsAvailable() {
+        this.available = true;
+    }
 }

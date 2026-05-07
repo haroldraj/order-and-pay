@@ -1,13 +1,12 @@
 package com.hrajaona.orderandpay.restaurantservice.adapters.out.persistence.entity;
 
-import com.hrajaona.library.enums.OrderStatus;
+import com.hrajaona.library.model.AddressSnapshot;
 import com.hrajaona.library.model.CustomerSnapshot;
 import com.hrajaona.library.model.OrderItemPayload;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
@@ -49,6 +48,10 @@ public class RestaurantOrderJpaEntity {
     @Column
     @JdbcTypeCode(SqlTypes.JSON)
     private CustomerSnapshot customerSnapshot;
+
+    @Column
+    @JdbcTypeCode(SqlTypes.JSON)
+    private AddressSnapshot deliveryAddress;
 
     @Column
     private LocalDateTime valueDate;

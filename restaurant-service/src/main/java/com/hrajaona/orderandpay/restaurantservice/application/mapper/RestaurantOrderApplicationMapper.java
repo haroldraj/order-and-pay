@@ -15,6 +15,7 @@ public interface RestaurantOrderApplicationMapper {
     @Mapping(target = "itemsSnapshot", source = "items")
     RestaurantOrder toDomain(OrderPaidEvent orderPaidEvent);
 
+    @Mapping(target = "customer", source = "customerSnapshot")
     OrderReadyForDeliveryEvent toOrderReadyForDeliveryEvent(RestaurantOrder restaurantOrder);
 
     OrderPreparingEvent toOrderPreparingEvent(RestaurantOrder restaurantOrder);

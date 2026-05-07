@@ -1,7 +1,8 @@
 package com.hrajaona.orderandpay.restaurantservice.application.service;
 
-import com.hrajaona.library.enums.OrderEvent;
 import com.hrajaona.library.enums.OrderStatus;
+import com.hrajaona.library.events.OrderReadyForDeliveryEvent;
+import com.hrajaona.library.model.RestaurantSnapshot;
 import com.hrajaona.orderandpay.restaurantservice.application.mapper.RestaurantOrderApplicationMapper;
 import com.hrajaona.orderandpay.restaurantservice.application.port.in.PrepareOrderUseCase;
 import com.hrajaona.orderandpay.restaurantservice.application.port.in.ReadyForDeliveryOrderUseCase;
@@ -10,12 +11,17 @@ import com.hrajaona.orderandpay.restaurantservice.application.port.in.command.Re
 import com.hrajaona.orderandpay.restaurantservice.application.port.out.OrderEventProducerPort;
 import com.hrajaona.orderandpay.restaurantservice.application.port.out.RestaurantOrderRepositoryPort;
 import com.hrajaona.orderandpay.restaurantservice.application.port.out.RestaurantOrderStatusHistoryPort;
+import com.hrajaona.orderandpay.restaurantservice.application.port.out.RestaurantRepositoryPort;
+import com.hrajaona.orderandpay.restaurantservice.domain.mapper.RestaurantSnapshotMapper;
+import com.hrajaona.orderandpay.restaurantservice.domain.model.Restaurant;
 import com.hrajaona.orderandpay.restaurantservice.domain.model.RestaurantOrder;
 import com.hrajaona.orderandpay.restaurantservice.domain.model.RestaurantOrderStatusHistory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +31,8 @@ public class RestaurantOrderService implements PrepareOrderUseCase, ReadyForDeli
     private final RestaurantOrderStatusHistoryPort restaurantOrderStatusHistoryPort;
     private final OrderEventProducerPort orderEventProducerPort;
     private final RestaurantOrderApplicationMapper applicationMapper;
+    private final RestaurantRepositoryPort restaurantRepositoryPort;
+    private final RestaurantSnapshotMapper restaurantSnapshotMapper;
 
 
     @Override
@@ -37,9 +45,7 @@ public class RestaurantOrderService implements PrepareOrderUseCase, ReadyForDeli
         order.markAsPreparing();
         updateOrderStatus(order, previousStatus);
 
-        orderEventProducerPort.publishOrderPreparing(
-                applicationMapper.toOrderPreparingEvent(order),
-                order.getCorrelationId());
+        orderEventProducerPort.publishOrderPreparing( applicationMapper.toOrderPreparingEvent(order), order.getCorrelationId());
 
     }
 
@@ -50,13 +56,15 @@ public class RestaurantOrderService implements PrepareOrderUseCase, ReadyForDeli
                 command.getOrderId(), command.getRestaurantId());
 
         OrderStatus previousStatus = order.getStatus();
-        order.markAsReadyFOrDelivery();
+        order.markAsReadyForDelivery();
 
         updateOrderStatus(order, previousStatus);
 
-        orderEventProducerPort.publishOrderReadyForDelivery(
-                applicationMapper.toOrderReadyForDeliveryEvent(order),
-                order.getCorrelationId());
+        OrderReadyForDeliveryEvent orderReadyForDeliveryEvent =  applicationMapper.toOrderReadyForDeliveryEvent(order);
+
+        orderReadyForDeliveryEvent.setRestaurantSnapshot(getRestaurantSnapshot(order.getRestaurantId()));
+
+        orderEventProducerPort.publishOrderReadyForDelivery(orderReadyForDeliveryEvent, order.getCorrelationId());
     }
 
 
@@ -76,5 +84,12 @@ public class RestaurantOrderService implements PrepareOrderUseCase, ReadyForDeli
 
         restaurantOrderStatusHistoryPort.save(orderStatusHistory);
     }
+
+    private RestaurantSnapshot getRestaurantSnapshot(UUID restaurantId) {
+        Restaurant restaurant = restaurantRepositoryPort.findById(restaurantId);
+
+        return  restaurantSnapshotMapper.toSnapshot(restaurant);
+    }
+
 
 }
