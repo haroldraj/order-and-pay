@@ -35,4 +35,18 @@ public class Order {
         this.status = OrderStatus.PAID;
         this.paymentStatus = PaymentStatus.COMPLETED;
     }
+
+    public void markAsPreparing() {
+        this.status = OrderStatus.PREPARING;
+    }
+
+    public void markAsPickedUp() {
+        this.status = OrderStatus.PICKED_UP;
+        this.deliveryStatus = DeliveryStatus.IN_TRANSIT;
+    }
+
+    public void markAsDelivered() {
+        this.status = OrderStatus.DELIVERED;
+        this.deliveryStatus = DeliveryStatus.COMPLETED;
+    }
 }

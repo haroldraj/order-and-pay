@@ -13,4 +13,5 @@ public interface OrderApplicationMapper {
     @Mapping(target = "deliveryAddress", source = "addressSnapshot")
     @Mapping(target = "items", source = "orderItems")
     OrderPaidEvent toOrderPaidEvent(Order order);
+
 }

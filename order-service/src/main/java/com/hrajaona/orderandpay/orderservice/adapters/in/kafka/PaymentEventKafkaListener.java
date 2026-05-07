@@ -22,9 +22,11 @@ public class PaymentEventKafkaListener {
         String correlationId = getCorrelationId(paymentRecord);
         String eventType = getEventType(paymentRecord);
 
-        log.info("Received {} event with correlationId {}", eventType, correlationId);
+        if (correlationId != null && eventType != null) {
+            log.info("Received {} event with correlationId {}", eventType, correlationId);
 
-        paymentCompletedUseCase.handle(paymentRecord.value(), correlationId);
+            paymentCompletedUseCase.handle(paymentRecord.value(), correlationId);
+        }
     }
 
     private String getCorrelationId(ConsumerRecord<String, PaymentCompletedEvent> paymentRecord) {

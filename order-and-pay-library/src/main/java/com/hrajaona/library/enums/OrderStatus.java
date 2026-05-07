@@ -7,6 +7,7 @@ public enum OrderStatus {
     PAYMENT_FAILED,
     PREPARING,
     READY_FOR_DELIVERY,
+    PICKED_UP,
     IN_DELIVERY,
     DELIVERED,
     CANCELLED

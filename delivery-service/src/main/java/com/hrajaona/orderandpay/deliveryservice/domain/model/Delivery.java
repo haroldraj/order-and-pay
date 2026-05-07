@@ -16,7 +16,6 @@ import java.util.UUID;
 public class Delivery {
     private UUID id;
     private UUID orderId;
-    private UUID userId;
     private UUID restaurantId;
     private RestaurantSnapshot restaurantSnapshot;
     private AddressSnapshot addressSnapshot;

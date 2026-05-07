@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface OrderRepositoryPort {
     List<Order> findAll();
     Order findByIdAndUserId(UUID id, UUID userId);
+    Order findByIdAndRestaurantId(UUID id, UUID restaurantId);
     Order update(Order order, List<OrderItem> orderItems);
     Order findByIdAndUserIdAndAmount(UUID id, UUID userId, BigDecimal amount);
 //    void update(Order order);

@@ -38,6 +38,13 @@ public class OrderPersistenceAdapter implements OrderRepositoryPort {
     }
 
     @Override
+    public Order findByIdAndRestaurantId(UUID id, UUID restaurantId) {
+        return orderJpaRepository.findByIdAndRestaurantId(id, restaurantId)
+                .map(orderPersistenceMapper::toDomain)
+                .orElseThrow(() -> new OrderNotFoundException(id));
+    }
+
+    @Override
     public Order update(Order order, List<OrderItem> orderItems) {
         try{
             order.setId(UUID.randomUUID());
