@@ -9,7 +9,7 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DeliveryApplicationMapper {
 
-    @Mapping(target = "customer_snapshot", source = "customer")
-    @Mapping(target = "address_snapshot", source = "delivery_address")
+    @Mapping(target = "customerSnapshot", source = "customer")
+    @Mapping(target = "addressSnapshot", source = "deliveryAddress")
     Delivery toDomain(OrderReadyForDeliveryEvent orderReadyForDeliveryEvent);
 }

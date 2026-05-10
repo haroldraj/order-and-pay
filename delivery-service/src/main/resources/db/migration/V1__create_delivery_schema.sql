@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS deliveries(
 );
 
 CREATE INDEX IF NOT EXISTS idx_deliveries_order_id ON deliveries(order_id);
-CREATE INDEX IF NOT EXISTS idx_deliveries_user_id ON deliveries(user_id);
 CREATE INDEX IF NOT EXISTS idx_deliveries_restaurant_id ON deliveries(restaurant_id);
 
 CREATE TABLE IF NOT EXISTS drivers(
