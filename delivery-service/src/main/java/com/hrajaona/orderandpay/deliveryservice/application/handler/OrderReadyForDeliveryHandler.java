@@ -29,19 +29,18 @@ public class OrderReadyForDeliveryHandler implements HandleOrderReadyUseCase {
     @Override
     @Transactional
     public void handle(OrderReadyForDeliveryEvent order, String correlationId) {
+
         Delivery savedDelivery = saveDelivery(deliveryApplicationMapper.toDomain(order));
 
         Driver driver = driverRepositoryPort.findAvailableDriver();
 
-        // TODO Save delivery_assignment
         assignDriverToDelivery(driver, savedDelivery);
-
 
     }
 
     private Delivery saveDelivery(Delivery delivery) {
         delivery.setEstimatedDeliveryTime(LocalDateTime.now().plusMinutes(15));
-        delivery.setStatus(DeliveryStatus.PENDING_ASSIGNMENT);
+        delivery.setStatus(DeliveryStatus.ASSIGNED);
         return deliveryRepositoryPort.save(delivery);
 
     }

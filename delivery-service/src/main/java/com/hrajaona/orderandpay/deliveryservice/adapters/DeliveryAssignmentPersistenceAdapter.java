@@ -1,6 +1,7 @@
 package com.hrajaona.orderandpay.deliveryservice.adapters;
 
 import com.hrajaona.library.enums.DeliveryStatus;
+import com.hrajaona.orderandpay.deliveryservice.adapters.out.persistence.entity.DeliveryAssignmentId;
 import com.hrajaona.orderandpay.deliveryservice.adapters.out.persistence.entity.DeliveryAssignmentJpaEntity;
 import com.hrajaona.orderandpay.deliveryservice.adapters.out.persistence.repository.DeliveryAssignmentJpaRepository;
 import com.hrajaona.orderandpay.deliveryservice.adapters.out.persistence.repository.DeliveryJpaRepository;
@@ -22,6 +23,10 @@ public class DeliveryAssignmentPersistenceAdapter implements DeliveryAssignmentR
     @Override
     public void assignDriverToDelivery(UUID driverId, UUID deliveryId) {
         DeliveryAssignmentJpaEntity deliveryAssignmentJpa = new DeliveryAssignmentJpaEntity();
+
+        DeliveryAssignmentId deliveryAssignmentId = new DeliveryAssignmentId();
+
+        deliveryAssignmentJpa.setId(deliveryAssignmentId);
 
         deliveryAssignmentJpa.setDriver(driverJpaRepository.getReferenceById(driverId));
         deliveryAssignmentJpa.setDelivery(deliveryJpaRepository.getReferenceById(deliveryId));

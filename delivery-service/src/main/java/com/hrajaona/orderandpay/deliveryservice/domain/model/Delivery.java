@@ -27,4 +27,12 @@ public class Delivery {
     private LocalDateTime pickedUpAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void markAsAssigned() {
+        this.status = DeliveryStatus.ASSIGNED;
+    }
+
+    public void markAsDelivered() {
+        this.status = DeliveryStatus.DELIVERED;
+    }
 }

@@ -3,7 +3,7 @@ POST http://localhost:5454/api/v1/restaurants/orders/preparing
 Content-type: application/json
 
 {
-  "orderId":"f30cf039-c4b0-40ee-a783-69f045c0b247",
+  "orderId":"cba02d1c-0f39-4e42-87ac-88f9ad52acee",
   "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11"
 }
 
@@ -12,6 +12,6 @@ POST http://localhost:5454/api/v1/restaurants/orders/ready-for-delivery
 Content-type: application/json
 
 {
-  "orderId":"f30cf039-c4b0-40ee-a783-69f045c0b247",
+  "orderId":"cba02d1c-0f39-4e42-87ac-88f9ad52acee",
   "restaurantId": "3c5a88e2-ff5b-44a7-8d7c-0e6f6a9fbd11"
 }
